@@ -30,7 +30,6 @@ void Aaro::City::setClock(QTime clock)
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 {
     stops_.push_back(stop);
-    qDebug() << stops_.size();
 }
 
 void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)

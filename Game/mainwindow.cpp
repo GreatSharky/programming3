@@ -6,7 +6,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent):
     CourseSide::SimpleMainWindow(parent)
 {
     qDebug() << "Window built";
-    setSize(10000,10000);
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
     tre = std::make_unique<City>();
@@ -26,5 +25,6 @@ bool MainWindow::addInformation()
     //add stops
     for(auto it = data_.get()->stops.begin(); it != data_.get()->stops.end();++it){
         tre.get()->addStop(*it);
+        addActor(it->get()->getLocation().giveX(),500-it->get()->getLocation().giveY());
     }
 }
