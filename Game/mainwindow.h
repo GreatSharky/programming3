@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "graphics/simplemainwindow.hh"
+#include "city.h"
 
 #include <QObject>
 #include <QWidget>
