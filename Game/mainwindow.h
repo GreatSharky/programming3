@@ -3,10 +3,15 @@
 
 #include "graphics/simplemainwindow.hh"
 #include "city.h"
+#include "offlinereader.hh"
 
 #include <QObject>
 #include <QWidget>
+#include <QDebug>
 #include <memory>
+
+QString const BUSFILE = ":/offlinedata/offlinedata/final_bus_liteN.json";
+QString const STOPFILE = ":/offlinedata/offlinedata/full_stations_kkj3.json";
 
 namespace Aaro {
 /**
@@ -20,7 +25,12 @@ public:
     MainWindow(QWidget* parent = nullptr);
 
 private:
+    bool addInformation();
 
+    std::unique_ptr<City> tre;
+    //City tre;
+    std::shared_ptr<CourseSide::OfflineData> data_;
+    bool dataread_;
 };
 
 }
