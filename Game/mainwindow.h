@@ -55,8 +55,8 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
-    QVector<QGraphicsPixmapItem*> actors_;
-    QGraphicsPixmapItem* last_;
+    QVector<QGraphicsItem*> actors_;
+    QGraphicsItem* last_;
 
     std::unique_ptr<City> tre;
     std::shared_ptr<CourseSide::OfflineData> data_;

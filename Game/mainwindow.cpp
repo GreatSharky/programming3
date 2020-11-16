@@ -46,9 +46,9 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
     }
     else if(type == NOTHING){
         SimpleActorItem* nActor = new SimpleActorItem(locX, locY, type);
-
+        actors_.push_back(nActor);
         map->addItem(nActor);
-
+        last_ = nActor;
     }
 }
 
