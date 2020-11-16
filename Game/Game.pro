@@ -5,11 +5,6 @@ QT += core gui widgets network multimedia
 
 CONFIG += c++14
 
-SOURCES += \
-    city.cpp \
-    main.cc \
-    mainwindow.cpp
-
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
 else:win32:CONFIG(debug, debug|release): LIBS += \
@@ -36,4 +31,20 @@ else:unix: PRE_TARGETDEPS += \
 
 HEADERS += \
     city.h \
-    mainwindow.h
+    mainwindow.h \
+    stopgraphic.h
+
+SOURCES += \
+    city.cpp \
+    main.cc \
+    mainwindow.cpp \
+    stopgraphic.cpp
+
+FORMS += \
+    mainwindow.ui \
+    mainwindow.ui
+
+RESOURCES += \
+    bus-stop-icon.png
+
+DISTFILES +=
