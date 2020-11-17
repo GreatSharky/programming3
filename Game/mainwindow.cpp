@@ -29,8 +29,9 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "addInformation";
     dataread_ = addInformation();
 
-    // Character voi toimii????
-    // Häh - Aaro
+    dude_ = new character(250, 250);
+    addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
+    // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
 }
 
 MainWindow::~MainWindow()

@@ -1,9 +1,9 @@
 #include "character.hh"
 
-Aaro::character::character() :
+Aaro::character::character(int x, int y) :
     removed_(false)
 {
-
+    location_.setXY(x, y);
 }
 
 Aaro::character::~character()

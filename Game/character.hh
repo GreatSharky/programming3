@@ -18,7 +18,7 @@ public:
     /**
      * @brief character
      */
-    character();
+    character(int x, int y);
     ~character();
     /**
      * @brief defined in IActor
@@ -35,11 +35,10 @@ public:
     void movement_commands(QKeyEvent *event);
 
 protected:
-    bool removed_;
+    bool removed_; 
 
 private:
     Location location_;
-
 };
 }
 #endif // CHARACTER_HH
