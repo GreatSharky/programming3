@@ -30,18 +30,19 @@ else:unix: PRE_TARGETDEPS += \
     $$OUT_PWD/../Course/CourseLib/libCourseLib.a
 
 HEADERS += \
+    character.hh \
     city.h \
     mainwindow.h \
     stopgraphic.h
 
 SOURCES += \
+    character.cpp \
     city.cpp \
     main.cc \
     mainwindow.cpp \
     stopgraphic.cpp
 
 FORMS += \
-    mainwindow.ui \
     mainwindow.ui
 
 RESOURCES += \

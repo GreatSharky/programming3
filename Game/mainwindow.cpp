@@ -28,6 +28,8 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     data_ = reader.readFiles(BUSFILE,STOPFILE);
     qDebug() << "addInformation";
     dataread_ = addInformation();
+
+    // Character voi toimii????
 }
 
 MainWindow::~MainWindow()

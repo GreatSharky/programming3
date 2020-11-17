@@ -39,7 +39,7 @@ void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
 
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
-
+    actors_.push_back(newactor);
 }
 
 void Aaro::City::removeActor(std::shared_ptr<IActor> actor)

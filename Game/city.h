@@ -56,6 +56,7 @@ private:
     QImage* map_;
     QImage* bigmap_;
     std::vector<std::shared_ptr<IStop> > stops_;
+    std::vector<std::shared_ptr<IActor>> actors_;
 
 };
 }

@@ -18,6 +18,7 @@
 #include <memory>
 #include <map>
 
+#include "character.hh"
 
 QString const BUSFILE = ":/offlinedata/offlinedata/final_bus_liteN.json";
 QString const STOPFILE = ":/offlinedata/offlinedata/full_stations_kkj3.json";
