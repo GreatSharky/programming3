@@ -3,8 +3,10 @@
 
 #include "city.h"
 #include "stopgraphic.h"
+#include "character.hh"
 #include "offlinereader.hh"
 #include "graphics/simpleactoritem.hh"
+#include "actors/nysse.hh"
 
 #include <QObject>
 #include <QWidget>
@@ -18,7 +20,6 @@
 #include <memory>
 #include <map>
 
-#include "character.hh"
 
 QString const BUSFILE = ":/offlinedata/offlinedata/final_bus_liteN.json";
 QString const STOPFILE = ":/offlinedata/offlinedata/full_stations_kkj3.json";
@@ -58,6 +59,7 @@ private:
     QTimer *timer;
     QVector<QGraphicsItem*> actors_;
     QGraphicsItem* last_;
+    character *dude_;
 
     std::unique_ptr<City> tre;
     std::shared_ptr<CourseSide::OfflineData> data_;

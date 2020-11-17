@@ -30,6 +30,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     dataread_ = addInformation();
 
     // Character voi toimii????
+    // Häh - Aaro
 }
 
 MainWindow::~MainWindow()
@@ -39,12 +40,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::addActor(int locX, int locY, GraphicItems type)
 {
-    qDebug() << locX << "/" << locY;
     if(type == GraphicItems::STOP){
         StopGraphic *stop = new StopGraphic(locX, locY, type);
         actors_.push_back(stop);
         map->addItem(stop);
         last_ = stop;
+    }
+    else if(type == GraphicItems::BUS){
+        SimpleActorItem* nActor = new SimpleActorItem(locX, locY, type);
+        actors_.push_back(nActor);
+        map->addItem(nActor);
+        last_ = nActor;
     }
     else if(type == NOTHING){
         SimpleActorItem* nActor = new SimpleActorItem(locX, locY, type);
@@ -63,8 +69,18 @@ bool MainWindow::addInformation()
         tre.get()->addStop(*it);
         int x = it->get()->getLocation().giveX();
         int y = 500-it->get()->getLocation().giveY();
-        qDebug() << x <<"/"<<y<<"/"<<it->get()->getName();
-        addActor(it->get()->getLocation().giveX(),500-it->get()->getLocation().giveY(), STOP);
+        addActor(x,y, STOP);
+    }
+    qDebug() << data_.get()->buses.size();
+    int test = 0;
+    for (auto it = data_.get()->buses.begin(); it != data_.get()->buses.end(); ++it) {
+        std::shared_ptr<CourseSide::Nysse> bus = std::make_shared<CourseSide::Nysse>(it->get()->routeNumber);
+        bus.get()->setRoute(it->get()->timeRoute2, it->get()->schedule.front()); // Not optimal time
+        bus.get()->setSID(it->get()->routeId);
+
+        tre.get()->addActor(bus);
+        addActor(bus.get()->giveLocation().giveX(),bus.get()->giveLocation().giveY(), BUS);
+        qDebug() << ++test;
     }
     return true;
 }
