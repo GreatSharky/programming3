@@ -30,12 +30,14 @@ else:unix: PRE_TARGETDEPS += \
     $$OUT_PWD/../Course/CourseLib/libCourseLib.a
 
 HEADERS += \
+    busgraphic.h \
     character.hh \
     city.h \
     mainwindow.h \
     stopgraphic.h
 
 SOURCES += \
+    busgraphic.cpp \
     character.cpp \
     city.cpp \
     main.cc \
@@ -46,6 +48,7 @@ FORMS += \
     mainwindow.ui
 
 RESOURCES += \
-    bus-stop-icon.png
+    bus-stop-icon.png \
+    bus-icon.png
 
 DISTFILES +=

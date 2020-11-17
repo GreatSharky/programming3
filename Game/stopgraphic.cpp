@@ -11,7 +11,6 @@ Aaro::StopGraphic::StopGraphic(int x, int y, int type):
     type_ = type;
     setX(x);
     setY(y);
-    qDebug() << this->x() <<"/" << this->y();
 }
 
 int Aaro::StopGraphic::giveType()

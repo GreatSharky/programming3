@@ -17,7 +17,6 @@ public:
     int giveType();
 
 private:
-    QPixmap *pic;
     int type_;
     QString filename;
 };

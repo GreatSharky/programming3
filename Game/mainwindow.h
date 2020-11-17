@@ -3,6 +3,7 @@
 
 #include "city.h"
 #include "stopgraphic.h"
+#include "busgraphic.h"
 #include "character.hh"
 #include "offlinereader.hh"
 #include "graphics/simpleactoritem.hh"

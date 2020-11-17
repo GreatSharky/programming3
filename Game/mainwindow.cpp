@@ -47,7 +47,7 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
         last_ = stop;
     }
     else if(type == GraphicItems::BUS){
-        SimpleActorItem* nActor = new SimpleActorItem(locX, locY, type);
+        BusGraphic* nActor = new BusGraphic(locX, locY, type);
         actors_.push_back(nActor);
         map->addItem(nActor);
         last_ = nActor;
@@ -71,8 +71,8 @@ bool MainWindow::addInformation()
         int y = 500-it->get()->getLocation().giveY();
         addActor(x,y, STOP);
     }
-    qDebug() << data_.get()->buses.size();
-    int test = 0;
+
+    // add busses
     for (auto it = data_.get()->buses.begin(); it != data_.get()->buses.end(); ++it) {
         std::shared_ptr<CourseSide::Nysse> bus = std::make_shared<CourseSide::Nysse>(it->get()->routeNumber);
         bus.get()->setRoute(it->get()->timeRoute2, it->get()->schedule.front()); // Not optimal time
@@ -80,7 +80,7 @@ bool MainWindow::addInformation()
 
         tre.get()->addActor(bus);
         addActor(bus.get()->giveLocation().giveX(),bus.get()->giveLocation().giveY(), BUS);
-        qDebug() << ++test;
+
     }
     return true;
 }
