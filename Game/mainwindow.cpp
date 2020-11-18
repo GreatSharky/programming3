@@ -8,14 +8,14 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-<<<<<<< HEAD
+
     this->setFixedSize(height_,width_);
     Dialog* startDialog = new Dialog(this);
     startDialog->show();
-=======
+
     qDebug() << "Window built";
     this->setFixedSize(height_ + 200, width_ + 200); // Lisäilin vähä
->>>>>>> 76eb52a4a813abe5e96f663d82c98574007a3a84
+
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
