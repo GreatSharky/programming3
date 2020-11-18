@@ -17,6 +17,7 @@
 #include <QTimer>
 #include <QVector>
 #include <QGraphicsPixmapItem>
+#include <QPushButton>
 #include <iostream>
 #include <memory>
 #include <map>
@@ -51,6 +52,9 @@ public:
 
 signals:
     void gameStarted();
+
+private slots:
+    void on_startbutton_clicked();
 
 private:
     bool addInformation();
