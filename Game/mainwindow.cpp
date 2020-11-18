@@ -8,8 +8,9 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    qDebug() << "Window built";
     this->setFixedSize(height_,width_);
+    Dialog* startDialog = new Dialog(this);
+    startDialog->show();
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -32,6 +33,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     dude_ = new character(250, 250);
     addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
     // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
+    show();
 }
 
 MainWindow::~MainWindow()

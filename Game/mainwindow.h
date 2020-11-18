@@ -5,6 +5,7 @@
 #include "stopgraphic.h"
 #include "busgraphic.h"
 #include "character.hh"
+#include "dialog.h"
 #include "offlinereader.hh"
 #include "graphics/simpleactoritem.hh"
 #include "actors/nysse.hh"

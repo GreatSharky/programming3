@@ -33,6 +33,7 @@ HEADERS += \
     busgraphic.h \
     character.hh \
     city.h \
+    dialog.h \
     mainwindow.h \
     stopgraphic.h
 
@@ -40,11 +41,13 @@ SOURCES += \
     busgraphic.cpp \
     character.cpp \
     city.cpp \
+    dialog.cpp \
     main.cc \
     mainwindow.cpp \
     stopgraphic.cpp
 
 FORMS += \
+    dialog.ui \
     mainwindow.ui
 
 RESOURCES += \
