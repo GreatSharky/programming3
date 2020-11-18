@@ -8,14 +8,23 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+<<<<<<< HEAD
     this->setFixedSize(height_,width_);
     Dialog* startDialog = new Dialog(this);
     startDialog->show();
+=======
+    qDebug() << "Window built";
+    this->setFixedSize(height_ + 200, width_ + 200); // Lisäilin vähä
+>>>>>>> 76eb52a4a813abe5e96f663d82c98574007a3a84
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
     map->setSceneRect(0,0,width_,height_);
 
+    //startti pitäs linkkaa oikein kellon kaa
+    QPushButton *startbutton = new QPushButton("start", this);
+    startbutton->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
+    connect(startbutton, SIGNAL(clicked()), this, SLOT(on_startbutton_clicked()));
 
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
@@ -63,8 +72,6 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
     }
 }
 
-
-
 bool MainWindow::addInformation()
 {
     //add stops
@@ -86,4 +93,9 @@ bool MainWindow::addInformation()
 
     }
     return true;
+}
+
+void MainWindow::on_startbutton_clicked()
+{
+    emit gameStarted();
 }
