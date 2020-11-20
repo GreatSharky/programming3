@@ -59,7 +59,7 @@ public:
      * @brief getActors
      * @return vector to city actors
      */
-    std::vector<std::shared_ptr<IActor>> getActors();
+    std::vector<std::shared_ptr<IActor>> getBuses();
 
     // test from olden days
     int test();
@@ -68,8 +68,8 @@ private:
     QImage* map_;
     QImage* bigmap_;
     std::vector<std::shared_ptr<IStop> > stops_;
-    std::vector<std::shared_ptr<IVehicle> > vehicles_;
-    std::vector<std::shared_ptr<IPassenger> > passengers_;
+    std::vector<std::shared_ptr<IActor> > vehicles_;
+    std::vector<std::shared_ptr<IActor> > passengers_;
 
 };
 }

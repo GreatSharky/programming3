@@ -37,6 +37,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
     logic->finalizeGameStart();
+    addInformation();
 
 
     dude_ = new character(250, 250);
@@ -74,22 +75,25 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
 
 bool MainWindow::addInformation()
 {
+    int x;
+    int y;
     //add stops
-    for(auto it = data_.get()->stops.begin(); it != data_.get()->stops.end();++it){
-        tre.get()->addStop(*it);
-        int x = it->get()->getLocation().giveX();
-        int y = 500-it->get()->getLocation().giveY();
+    int test = 0;
+    qDebug() << "Stops koko" << tre.get()->getStops().size();
+    for(auto it = tre.get()->getStops().begin(); it != tre.get()->getStops().end();++it){
+        qDebug() << test;
+        ++test;
+        x = it->get()->getLocation().giveX();
+        y = 500-it->get()->getLocation().giveY();
         addActor(x,y, STOP);
     }
 
     // add busses
-    for (auto it = data_.get()->buses.begin(); it != data_.get()->buses.end(); ++it) {
-        std::shared_ptr<CourseSide::Nysse> bus = std::make_shared<CourseSide::Nysse>(it->get()->routeNumber);
-        bus.get()->setRoute(it->get()->timeRoute2, it->get()->schedule.front()); // Not optimal time
-        bus.get()->setSID(it->get()->routeId);
-
-        tre.get()->addActor(bus);
-        addActor(bus.get()->giveLocation().giveX(),bus.get()->giveLocation().giveY(), BUS);
+    qDebug() << tre.get()->getBuses().size();
+    for (auto it = tre.get()->getBuses().begin(); it != tre.get()->getBuses().end(); ++it) {
+        x = it->get()->giveLocation().giveX();
+        y = 500-it->get()->giveLocation().giveY();
+        addActor(x, y, BUS);
 
     }
     return true;

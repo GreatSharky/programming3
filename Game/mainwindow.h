@@ -71,7 +71,7 @@ private:
     std::shared_ptr<CourseSide::Logic> logic;
 
     std::shared_ptr<City> tre;
-    std::shared_ptr<CourseSide::OfflineData> data_;
+
     bool dataread_;
 
     int width_ = 500; //pxls
