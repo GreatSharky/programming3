@@ -9,6 +9,7 @@
 #include "offlinereader.hh"
 #include "graphics/simpleactoritem.hh"
 #include "actors/nysse.hh"
+#include "core/logic.hh"
 
 #include <QObject>
 #include <QWidget>
@@ -67,7 +68,9 @@ private:
     QGraphicsItem* last_;
     character *dude_;
 
-    std::unique_ptr<City> tre;
+    std::shared_ptr<CourseSide::Logic> logic;
+
+    std::shared_ptr<City> tre;
     std::shared_ptr<CourseSide::OfflineData> data_;
     bool dataread_;
 

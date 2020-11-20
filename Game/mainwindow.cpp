@@ -28,16 +28,16 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
-    tre = std::make_unique<City>();
+    tre = std::make_shared<City>();
     tre.get()->setBackground(pic,pic);
     map->setBackgroundBrush(*tre.get()->getBackground());
-    //tre.setBackground(pic,pic);
-    //setPicture(*tre.getBackground());
-    dataread_ = false;
-    CourseSide::OfflineReader reader;
-    data_ = reader.readFiles(BUSFILE,STOPFILE);
-    qDebug() << "addInformation";
-    dataread_ = addInformation();
+
+    logic = std::make_shared<CourseSide::Logic>(this);
+    logic.get()->takeCity(tre);
+    logic.get()->fileConfig();
+    logic.get()->setTime(12,0);
+    logic->finalizeGameStart();
+
 
     dude_ = new character(250, 250);
     addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
