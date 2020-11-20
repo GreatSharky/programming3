@@ -50,6 +50,17 @@ public:
      */
     QImage *getBackground();
 
+    /**
+     * @brief getStops
+     * @return vector to city stops
+     */
+    std::vector<std::shared_ptr<IStop> > getStops();
+    /**
+     * @brief getActors
+     * @return vector to city actors
+     */
+    std::vector<std::shared_ptr<IActor>> getActors();
+
     // test from olden days
     int test();
 
@@ -57,7 +68,8 @@ private:
     QImage* map_;
     QImage* bigmap_;
     std::vector<std::shared_ptr<IStop> > stops_;
-    std::vector<std::shared_ptr<IActor>> actors_;
+    std::vector<std::shared_ptr<IVehicle> > vehicles_;
+    std::vector<std::shared_ptr<IPassenger> > passengers_;
 
 };
 }

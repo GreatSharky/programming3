@@ -40,8 +40,10 @@ void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
 
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
-    actors_.push_back(newactor);
-    qDebug() << actors_.size();
+    if(dynamic_cast<CourseSide::Nysse*>(newactor.get()) != nullptr){
+        qDebug() << "bussi";
+    }
+
 }
 
 void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
