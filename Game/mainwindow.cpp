@@ -75,22 +75,22 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
 
 bool MainWindow::addInformation()
 {
+    int x;
+    int y;
     //add stops
-    int test = 0;
+    // auto iterator did not function fro these loops
     qDebug() << "Stops koko" << tre.get()->getStops().size();
-    for(auto it = tre.get()->getStops().begin(); it != tre.get()->getStops().end();++it){
-        qDebug() << test;
-        ++test;
-        int x = it->get()->getLocation().giveX();
-        int y = 500-it->get()->getLocation().giveY();
+    for(uint it = 0;it < tre.get()->getStops().size();++it){
+        x = tre.get()->getStops()[it].get()->getLocation().giveX();
+        y = 500-tre.get()->getStops()[it].get()->getLocation().giveY();
         addActor(x,y, STOP);
     }
 
     // add busses
-    qDebug() << tre.get()->getBuses().size();
-    for (auto it = tre.get()->getBuses().begin(); it != tre.get()->getBuses().end(); ++it) {
-        int x = it->get()->giveLocation().giveX();
-        int y = 500-it->get()->giveLocation().giveY();
+    qDebug() << "Buses koko" << tre.get()->getBuses().size();
+    for (uint it = 0; it < tre.get()->getBuses().size();++it) {
+        x = tre.get()->getBuses()[it].get()->giveLocation().giveX();
+        y = 500-tre.get()->getBuses()[it].get()->giveLocation().giveY();
         addActor(x, y, BUS);
 
     }
