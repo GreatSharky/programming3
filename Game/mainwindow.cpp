@@ -75,24 +75,22 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
 
 bool MainWindow::addInformation()
 {
-    int x;
-    int y;
     //add stops
     int test = 0;
     qDebug() << "Stops koko" << tre.get()->getStops().size();
     for(auto it = tre.get()->getStops().begin(); it != tre.get()->getStops().end();++it){
         qDebug() << test;
         ++test;
-        x = it->get()->getLocation().giveX();
-        y = 500-it->get()->getLocation().giveY();
+        int x = it->get()->getLocation().giveX();
+        int y = 500-it->get()->getLocation().giveY();
         addActor(x,y, STOP);
     }
 
     // add busses
     qDebug() << tre.get()->getBuses().size();
     for (auto it = tre.get()->getBuses().begin(); it != tre.get()->getBuses().end(); ++it) {
-        x = it->get()->giveLocation().giveX();
-        y = 500-it->get()->giveLocation().giveY();
+        int x = it->get()->giveLocation().giveX();
+        int y = 500-it->get()->giveLocation().giveY();
         addActor(x, y, BUS);
 
     }
