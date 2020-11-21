@@ -13,10 +13,15 @@ class BusGraphic : public QGraphicsPixmapItem
 {
 public:
     BusGraphic(int x, int y, int type);
+    void updateGraphic(int newX, int newY);
     int giveType();
 
 private:
     int type_;
+    int x_;
+    int y_;
+    int dir_;
+    QPixmap picture;
     QString filename;
 };
 }

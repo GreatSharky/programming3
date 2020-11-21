@@ -51,6 +51,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setTick(int t)
+{
+
+}
+
 void MainWindow::addActor(int locX, int locY, GraphicItems type)
 {
     if(type == GraphicItems::STOP){

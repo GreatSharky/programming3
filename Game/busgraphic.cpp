@@ -6,12 +6,19 @@ Aaro::BusGraphic::BusGraphic(int x, int y, int type):
 {
     filename = ":/bus-icon.png";
     QPixmap bigGraphic(filename);
-    QPixmap realGraphic = bigGraphic.scaled(50,50);
-    //QPixmap flipped = realGraphic.transformed(QTransform().scale(-1,1));
-    setPixmap(realGraphic);
+    picture = bigGraphic.scaled(50,50);
+    setPixmap(picture);
     type_=type;
     setX(x);
     setY(y);
+}
+
+void Aaro::BusGraphic::updateGraphic(int newX, int newY)
+{
+    // Jos suunta on eri kuin ennen flippaa picture
+    // Miten?
+    int tempdir = dir_;
+
 }
 
 int Aaro::BusGraphic::giveType()
