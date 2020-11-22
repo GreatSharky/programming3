@@ -44,6 +44,10 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
     // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
     show();
+
+    timer = new QTimer();
+    setTick(1000);
+    connect(timer, &QTimer::timeout, this, &MainWindow::advanceGame);
 }
 
 MainWindow::~MainWindow()
@@ -53,26 +57,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::setTick(int t)
 {
-
+    timer->setInterval(t);
 }
 
 void MainWindow::addActor(int locX, int locY, GraphicItems type)
 {
     if(type == GraphicItems::STOP){
         StopGraphic *stop = new StopGraphic(locX, locY, type);
-        actors_.push_back(stop);
+        stops_.push_back(stop);
         map->addItem(stop);
         last_ = stop;
     }
     else if(type == GraphicItems::BUS){
         BusGraphic* nActor = new BusGraphic(locX, locY, type);
-        actors_.push_back(nActor);
+        vechiles_.push_back(nActor);
         map->addItem(nActor);
         last_ = nActor;
     }
     else if(type == NOTHING){
         SimpleActorItem* nActor = new SimpleActorItem(locX, locY, type);
-        actors_.push_back(nActor);
+        stops_.push_back(nActor);
         map->addItem(nActor);
         last_ = nActor;
     }
@@ -104,5 +108,33 @@ bool MainWindow::addInformation()
 
 void MainWindow::on_startbutton_clicked()
 {
+    timer->start();
     emit gameStarted();
+}
+
+void MainWindow::advanceGame()
+{
+    qDebug() << "advanceGame()";
+    logic.get()->advance();
+    updateBuses();
+}
+
+void MainWindow::updateBuses()
+{
+    int x;
+    int y;
+    for (uint it = 0; it < vechiles_.size(); ++it) {
+        BusGraphic* bus = dynamic_cast<BusGraphic*>(vechiles_[it]);
+        if(bus != nullptr){
+            if(!tre.get()->getBuses()[it].get()->isRemoved()){
+                x = tre.get()->getBuses()[it].get()->giveLocation().giveX();
+                y = 500 - tre.get()->getBuses()[it].get()->giveLocation().giveY();
+                bus->updateGraphic(x,y);
+            }
+            else{
+                // removes removed vechile
+                vechiles_.erase(vechiles_.begin()+it-1);
+            }
+        }
+    }
 }

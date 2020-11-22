@@ -14,7 +14,7 @@ class BusGraphic : public QGraphicsPixmapItem
 public:
     BusGraphic(int x, int y, int type);
     void updateGraphic(int newX, int newY);
-    int giveType();
+    int getType();
 
 private:
     int type_;

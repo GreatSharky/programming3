@@ -57,6 +57,8 @@ signals:
 
 private slots:
     void on_startbutton_clicked();
+    void advanceGame();
+    void updateBuses();
 
 private:
     bool addInformation();
@@ -64,7 +66,8 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
-    QVector<QGraphicsItem*> actors_;
+    QVector<QGraphicsPixmapItem*> vechiles_;
+    QVector<QGraphicsItem*> stops_;
     QGraphicsItem* last_;
     character *dude_;
 

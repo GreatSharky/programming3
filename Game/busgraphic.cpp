@@ -40,7 +40,7 @@ void Aaro::BusGraphic::updateGraphic(int newX, int newY)
 
 }
 
-int Aaro::BusGraphic::giveType()
+int Aaro::BusGraphic::getType()
 {
     return type_;
 }
