@@ -41,6 +41,7 @@ SOURCES += \
     busgraphic.cpp \
     character.cpp \
     city.cpp \
+    creategame.cpp \
     dialog.cpp \
     main.cc \
     mainwindow.cpp \

@@ -9,6 +9,7 @@
 #include "offlinereader.hh"
 #include "graphics/simpleactoritem.hh"
 #include "actors/nysse.hh"
+#include "core/logic.hh"
 
 #include <QObject>
 #include <QWidget>
@@ -56,6 +57,8 @@ signals:
 
 private slots:
     void on_startbutton_clicked();
+    void advanceGame();
+    void updateBuses();
 
 private:
     bool addInformation();
@@ -63,12 +66,15 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
-    QVector<QGraphicsItem*> actors_;
+    QVector<QGraphicsPixmapItem*> vechiles_;
+    QVector<QGraphicsItem*> stops_;
     QGraphicsItem* last_;
     character *dude_;
 
-    std::unique_ptr<City> tre;
-    std::shared_ptr<CourseSide::OfflineData> data_;
+    std::shared_ptr<CourseSide::Logic> logic;
+
+    std::shared_ptr<City> tre;
+
     bool dataread_;
 
     int width_ = 500; //pxls
