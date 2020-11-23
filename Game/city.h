@@ -71,6 +71,11 @@ private:
     std::vector<std::shared_ptr<IActor> > vehicles_;
     std::vector<std::shared_ptr<IActor> > passengers_;
 
+    QTime* clock_;
+
+
+    bool gameLive_;
+
 };
 }
 #endif // CITY_H

@@ -26,9 +26,6 @@
 #include <map>
 
 
-QString const BUSFILE = ":/offlinedata/offlinedata/final_bus_liteN.json";
-QString const STOPFILE = ":/offlinedata/offlinedata/full_stations_kkj3.json";
-
 enum GraphicItems {NOTHING, STOP, BUS, PASSENGER, other};
 
 namespace Ui {
