@@ -30,6 +30,7 @@ void Aaro::City::setClock(QTime clock)
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 {
     stops_.push_back(stop);
+    qDebug() << stops_.size();
 }
 
 void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
@@ -39,7 +40,13 @@ void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
 
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
-    actors_.push_back(newactor);
+    if(dynamic_cast<CourseSide::Nysse*>(newactor.get()) != nullptr){
+        vehicles_.push_back(newactor);
+    }
+    else {
+        passengers_.push_back(newactor);
+    }
+
 }
 
 void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
@@ -78,6 +85,16 @@ QImage* Aaro::City::getBackground()
     else{
         // throw error
     }
+}
+
+std::vector<std::shared_ptr<IStop> > Aaro::City::getStops()
+{
+    return stops_;
+}
+
+std::vector<std::shared_ptr<IActor> > Aaro::City::getBuses()
+{
+    return vehicles_;
 }
 
 int Aaro::City::test()

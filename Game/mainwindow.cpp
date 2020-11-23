@@ -8,8 +8,14 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    this->setFixedSize(height_,width_);
+    Dialog* startDialog = new Dialog(this);
+    startDialog->show();
+
     qDebug() << "Window built";
     this->setFixedSize(height_ + 200, width_ + 200); // Lisäilin vähä
+
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -22,20 +28,26 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
-    tre = std::make_unique<City>();
+    tre = std::make_shared<City>();
     tre.get()->setBackground(pic,pic);
     map->setBackgroundBrush(*tre.get()->getBackground());
-    //tre.setBackground(pic,pic);
-    //setPicture(*tre.getBackground());
-    dataread_ = false;
-    CourseSide::OfflineReader reader;
-    data_ = reader.readFiles(BUSFILE,STOPFILE);
-    qDebug() << "addInformation";
-    dataread_ = addInformation();
+
+    logic = std::make_shared<CourseSide::Logic>(this);
+    logic.get()->takeCity(tre);
+    logic.get()->fileConfig();
+    logic.get()->setTime(12,0);
+    logic->finalizeGameStart();
+    addInformation();
+
 
     dude_ = new character(250, 250);
     addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
     // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
+    show();
+
+    timer = new QTimer();
+    setTick(1000);
+    connect(timer, &QTimer::timeout, this, &MainWindow::advanceGame);
 }
 
 MainWindow::~MainWindow()
@@ -43,23 +55,28 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setTick(int t)
+{
+    timer->setInterval(t);
+}
+
 void MainWindow::addActor(int locX, int locY, GraphicItems type)
 {
     if(type == GraphicItems::STOP){
         StopGraphic *stop = new StopGraphic(locX, locY, type);
-        actors_.push_back(stop);
+        stops_.push_back(stop);
         map->addItem(stop);
         last_ = stop;
     }
     else if(type == GraphicItems::BUS){
         BusGraphic* nActor = new BusGraphic(locX, locY, type);
-        actors_.push_back(nActor);
+        vechiles_.push_back(nActor);
         map->addItem(nActor);
         last_ = nActor;
     }
     else if(type == NOTHING){
         SimpleActorItem* nActor = new SimpleActorItem(locX, locY, type);
-        actors_.push_back(nActor);
+        stops_.push_back(nActor);
         map->addItem(nActor);
         last_ = nActor;
     }
@@ -67,22 +84,23 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
 
 bool MainWindow::addInformation()
 {
+    int x;
+    int y;
     //add stops
-    for(auto it = data_.get()->stops.begin(); it != data_.get()->stops.end();++it){
-        tre.get()->addStop(*it);
-        int x = it->get()->getLocation().giveX();
-        int y = 500-it->get()->getLocation().giveY();
+    // auto iterator did not function fro these loops
+    qDebug() << "Stops koko" << tre.get()->getStops().size();
+    for(uint it = 0;it < tre.get()->getStops().size();++it){
+        x = tre.get()->getStops()[it].get()->getLocation().giveX();
+        y = 500-tre.get()->getStops()[it].get()->getLocation().giveY();
         addActor(x,y, STOP);
     }
 
     // add busses
-    for (auto it = data_.get()->buses.begin(); it != data_.get()->buses.end(); ++it) {
-        std::shared_ptr<CourseSide::Nysse> bus = std::make_shared<CourseSide::Nysse>(it->get()->routeNumber);
-        bus.get()->setRoute(it->get()->timeRoute2, it->get()->schedule.front()); // Not optimal time
-        bus.get()->setSID(it->get()->routeId);
-
-        tre.get()->addActor(bus);
-        addActor(bus.get()->giveLocation().giveX(),bus.get()->giveLocation().giveY(), BUS);
+    qDebug() << "Buses koko" << tre.get()->getBuses().size();
+    for (uint it = 0; it < tre.get()->getBuses().size();++it) {
+        x = tre.get()->getBuses()[it].get()->giveLocation().giveX();
+        y = 500-tre.get()->getBuses()[it].get()->giveLocation().giveY();
+        addActor(x, y, BUS);
 
     }
     return true;
@@ -90,5 +108,33 @@ bool MainWindow::addInformation()
 
 void MainWindow::on_startbutton_clicked()
 {
+    timer->start();
     emit gameStarted();
+}
+
+void MainWindow::advanceGame()
+{
+    qDebug() << "advanceGame()";
+    logic.get()->advance();
+    updateBuses();
+}
+
+void MainWindow::updateBuses()
+{
+    int x;
+    int y;
+    for (uint it = 0; it < vechiles_.size(); ++it) {
+        BusGraphic* bus = dynamic_cast<BusGraphic*>(vechiles_[it]);
+        if(bus != nullptr){
+            if(!tre.get()->getBuses()[it].get()->isRemoved()){
+                x = tre.get()->getBuses()[it].get()->giveLocation().giveX();
+                y = 500 - tre.get()->getBuses()[it].get()->giveLocation().giveY();
+                bus->updateGraphic(x,y);
+            }
+            else{
+                // removes removed vechile
+                vechiles_.erase(vechiles_.begin()+it-1);
+            }
+        }
+    }
 }
