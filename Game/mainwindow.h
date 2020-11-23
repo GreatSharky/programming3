@@ -18,6 +18,7 @@
 #include <QVector>
 #include <QGraphicsPixmapItem>
 #include <QPushButton>
+#include <QDialog>
 #include <iostream>
 #include <memory>
 #include <map>
