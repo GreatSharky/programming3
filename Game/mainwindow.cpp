@@ -11,7 +11,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
     this->setFixedSize(height_,width_);
     Dialog* startDialog = new Dialog(this);
-    startDialog->show();
+    startDialog->exec();
 
     qDebug() << "Window built";
     this->setFixedSize(height_ + 200, width_ + 200); // Lisäilin vähä
@@ -21,10 +21,14 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui->gameView->setScene(map);
     map->setSceneRect(0,0,width_,height_);
 
+    timer = new QTimer();
+    setTick(tick_);
+    connect(timer, &QTimer::timeout, this, &MainWindow::advanceGame);
+
     //startti pitäs linkkaa oikein kellon kaa
     QPushButton *startbutton = new QPushButton("start", this);
     startbutton->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
-    connect(startbutton, SIGNAL(clicked()), this, SLOT(on_startbutton_clicked()));
+    connect(startbutton, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
 
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
@@ -45,9 +49,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
     show();
 
-    timer = new QTimer();
-    setTick(1000);
-    connect(timer, &QTimer::timeout, this, &MainWindow::advanceGame);
 }
 
 MainWindow::~MainWindow()
@@ -70,7 +71,7 @@ void MainWindow::addActor(int locX, int locY, GraphicItems type)
     }
     else if(type == GraphicItems::BUS){
         BusGraphic* nActor = new BusGraphic(locX, locY, type);
-        vechiles_.push_back(nActor);
+        vehicles_.push_back(nActor);
         map->addItem(nActor);
         last_ = nActor;
     }
@@ -123,8 +124,8 @@ void MainWindow::updateBuses()
 {
     int x;
     int y;
-    for (uint it = 0; it < vechiles_.size(); ++it) {
-        BusGraphic* bus = dynamic_cast<BusGraphic*>(vechiles_[it]);
+    for (int it = 0; it < vehicles_.size(); ++it) {
+        BusGraphic* bus = dynamic_cast<BusGraphic*>(vehicles_[it]);
         if(bus != nullptr){
             if(!tre.get()->getBuses()[it].get()->isRemoved()){
                 x = tre.get()->getBuses()[it].get()->giveLocation().giveX();
@@ -133,7 +134,7 @@ void MainWindow::updateBuses()
             }
             else{
                 // removes removed vechile
-                vechiles_.erase(vechiles_.begin()+it-1);
+                vehicles_.erase(vehicles_.begin()+it-1);
             }
         }
     }

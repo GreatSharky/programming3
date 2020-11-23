@@ -67,7 +67,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
-    QVector<QGraphicsPixmapItem*> vechiles_;
+    QVector<QGraphicsPixmapItem*> vehicles_;
     QVector<QGraphicsItem*> stops_;
     QGraphicsItem* last_;
     character *dude_;
