@@ -58,11 +58,11 @@ private slots:
     void on_startbutton_clicked();
     void advanceGame();
     void updateBuses();
-    void character_movement(QString command);
+
 
 private:
     bool addInformation();
-
+    bool eventFilter(QObject *object, QEvent *event);
 
     Ui::MainWindow *ui;
     QGraphicsScene *map;
@@ -72,6 +72,7 @@ private:
     QGraphicsItem* last_;
     character *dude_;
     QPushButton *startbutton_;
+    bool action_taken_;
 
     std::shared_ptr<CourseSide::Logic> logic;
 

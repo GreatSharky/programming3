@@ -5,7 +5,8 @@ using namespace Aaro;
 
 Aaro::MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    action_taken_(false)
 {
     ui->setupUi(this);
     this->setFixedSize(height_,width_);
@@ -27,7 +28,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     startbutton_ = new QPushButton("start", this);
     startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
-
+    installEventFilter(this);
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
     tre = std::make_shared<City>();
@@ -105,9 +106,28 @@ bool MainWindow::addInformation()
     return true;
 }
 
-void MainWindow::character_movement(QString command)
+bool MainWindow::eventFilter(QObject *object, QEvent *event)
 {
-    dude_->movement_commands(command);
+    if(event->type() == QEvent::KeyPress && action_taken_ == false){
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        action_taken_ = true;
+        switch (keyEvent->key()){
+            case Qt::Key_Up:
+                dude_->movement_commands("up");
+                break;
+            case Qt::Key_Down:
+                dude_->movement_commands("down");
+                break;
+            case Qt::Key_Left:
+                dude_->movement_commands("left");
+                break;
+            case Qt::Key_Right:
+                dude_->movement_commands("right");
+                break;
+        }
+        return QObject::eventFilter(object, event);
+    }
+    return true;
 }
 
 void MainWindow::on_startbutton_clicked()
@@ -123,6 +143,7 @@ void MainWindow::advanceGame()
     logic.get()->advance();
     dude_->move(dude_->giveLocation());
     updateBuses();
+    action_taken_ = false;
 }
 
 void MainWindow::updateBuses()
