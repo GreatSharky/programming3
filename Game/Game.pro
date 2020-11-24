@@ -30,6 +30,7 @@ else:unix: PRE_TARGETDEPS += \
     $$OUT_PWD/../Course/CourseLib/libCourseLib.a
 
 HEADERS += \
+    airplane.hh \
     busgraphic.h \
     character.hh \
     city.h \
@@ -38,6 +39,7 @@ HEADERS += \
     stopgraphic.h
 
 SOURCES += \
+    airplane.cpp \
     busgraphic.cpp \
     character.cpp \
     city.cpp \

@@ -31,23 +31,23 @@ bool Aaro::character::isRemoved() const
     return removed_;
 }
 
-void Aaro::character::movement_commands(QKeyEvent *event)
+void Aaro::character::movement_commands(QString command)
 {
-    if(event->key() == Qt::Key_Left){
+    if(command == "left"){
         qDebug() << "liikkuu";
         // Paha sanoo mitää täst
         Location newloc = Location(location_.giveX() - 10, location_.giveY());
         move(newloc);
 
-    }else if(event->key() == Qt::Key_Right){
+    }else if(command == "right"){
         Location newloc = Location(location_.giveX() + 10, location_.giveY());
         move(newloc);
 
-    }else if(event->key() == Qt::Key_Up){
+    }else if(command == "up"){
         Location newloc = Location(location_.giveX(), location_.giveY() - 10);
         move(newloc);
 
-    }else if(event->key() == Qt::Key_Down){
+    }else if(command == "down"){
         Location newloc = Location(location_.giveX(), location_.giveY() + 10);
         move(newloc);
     }

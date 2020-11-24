@@ -25,6 +25,7 @@
 #include <memory>
 #include <map>
 
+#include <QKeyEvent>
 
 enum GraphicItems {NOTHING, STOP, BUS, PASSENGER, other};
 
@@ -57,9 +58,11 @@ private slots:
     void on_startbutton_clicked();
     void advanceGame();
     void updateBuses();
+    void character_movement(QString command);
 
 private:
     bool addInformation();
+
 
     Ui::MainWindow *ui;
     QGraphicsScene *map;
@@ -68,6 +71,7 @@ private:
     QVector<QGraphicsItem*> stops_;
     QGraphicsItem* last_;
     character *dude_;
+    QPushButton *startbutton_;
 
     std::shared_ptr<CourseSide::Logic> logic;
 

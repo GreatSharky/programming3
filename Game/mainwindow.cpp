@@ -8,14 +8,12 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     this->setFixedSize(height_,width_);
     Dialog* startDialog = new Dialog(this);
     startDialog->exec();
 
     qDebug() << "Window built";
     this->setFixedSize(height_ + 200, width_ + 200); // Lisäilin vähä
-
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -26,9 +24,9 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     connect(timer, &QTimer::timeout, this, &MainWindow::advanceGame);
 
     //startti pitäs linkkaa oikein kellon kaa
-    QPushButton *startbutton = new QPushButton("start", this);
-    startbutton->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
-    connect(startbutton, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
+    startbutton_ = new QPushButton("start", this);
+    startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
+    connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
 
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
@@ -107,16 +105,23 @@ bool MainWindow::addInformation()
     return true;
 }
 
+void MainWindow::character_movement(QString command)
+{
+    dude_->movement_commands(command);
+}
+
 void MainWindow::on_startbutton_clicked()
 {
     timer->start();
     emit gameStarted();
+    delete startbutton_;
 }
 
 void MainWindow::advanceGame()
 {
     qDebug() << "advanceGame()";
     logic.get()->advance();
+    dude_->move(dude_->giveLocation());
     updateBuses();
 }
 

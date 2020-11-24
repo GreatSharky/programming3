@@ -11,7 +11,6 @@ using namespace Interface;
 
 namespace Aaro{
 
-
 class character: public IActor
 {
 public:
@@ -29,10 +28,10 @@ public:
     bool isRemoved() const override;
     /**
      * @brief Takes the user inputs
-     * @param event buttonclicks
+     * @param command right direction
      */
 
-    void movement_commands(QKeyEvent *event);
+    void movement_commands(QString command);
 
 protected:
     bool removed_; 
