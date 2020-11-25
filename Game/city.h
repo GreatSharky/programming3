@@ -16,6 +16,9 @@
 using namespace Interface;
 using namespace CourseSide;
 
+namespace U {
+class MainWindow;
+}
 
 namespace Aaro{
 // Forward decleration

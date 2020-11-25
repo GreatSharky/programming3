@@ -60,7 +60,7 @@ void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
                                             500-newactor->giveLocation().giveY(),BUS));
         vehicles_.insert({newactor, pic});
         // Lisää mainwondwiin vs
-        game->addActorw(pic.get());
+        game->addActor(pic.get());
     }
 }
 
@@ -122,8 +122,7 @@ std::vector<std::shared_ptr<IStop> > Aaro::City::getStops()
     return stops_;
 }
 
-
-void Aaro::City::setGameWindow(MainWindow *window)
+void Aaro::City::setGameWindow(Aaro::MainWindow *window)
 {
     game = window;
 }

@@ -1,9 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "city.h"
 #include "character.hh"
 #include "dialog.h"
+#include "graphicitem.h"
+#include "city.h"
 #include "graphics/simpleactoritem.hh"
 #include "core/logic.hh"
 
@@ -28,7 +29,6 @@ class MainWindow;
 
 namespace Aaro {
 
-class City;
 
 /**
  * @brief The MainWindow class
@@ -43,7 +43,7 @@ public:
 
     void setTick(int t);
 
-    void addActorw(GraphicItem* actorPic);
+    void addActor(GraphicItem* actorPic);
     void updateCoords(int nX, int nY);
     void setPicture(QImage &img);
 
