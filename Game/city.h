@@ -17,15 +17,15 @@
 using namespace Interface;
 using namespace CourseSide;
 
+
+namespace Aaro{
 // Forward decleration
-namespace Aaro {
-    class MainWindow;
-}
+class MainWindow;
+
+
 /**
  *Defines city
  */
-namespace Aaro{
-
 class City : public ICity
 {
 public:
@@ -80,7 +80,7 @@ private:
 
     QTime* clock_;
 
-    MainWindow* game;
+    Aaro::MainWindow* game;
 
 
     bool gameLive_;

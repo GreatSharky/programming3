@@ -59,6 +59,7 @@ void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
                                             500-newactor->giveLocation().giveY(),BUS));
         vehicles_.insert({newactor, pic});
         // Lisää mainwondwiin vs
+        game->addActor(pic);
     }
 }
 
@@ -84,14 +85,19 @@ bool Aaro::City::isGameOver() const
 
 bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
 {
-    for(uint it = 0; it < vehicles_.size(); ++it){
-        if(vehicles_[it].get() == actor.get()){
-            return true;
+    if(dynamic_cast<Nysse*>(actor.get()) != nullptr){
+        for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
+            if(it->first == actor){
+                return true;
+            }
         }
     }
-    for(uint it = 0; it < passengers_.size(); ++it){
-        if( passengers_[it].get() == actor.get()){
-            return true;
+    else if(dynamic_cast<IStop*>(actor.get()) != nullptr){
+        IStop* stp = dynamic_cast<IStop*>(actor.get());
+        for(auto it = stops_.begin(); it != stops_.end(); ++it){
+            if(stp == it->get()){
+                return true;
+            }
         }
     }
     return false;

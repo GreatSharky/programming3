@@ -31,6 +31,7 @@ class MainWindow;
 }
 
 namespace Aaro {
+
 /**
  * @brief The MainWindow class
  * Window where the game is played
