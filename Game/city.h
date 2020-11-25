@@ -1,6 +1,7 @@
 #ifndef CITY_H
 #define CITY_H
 
+#include "mainwindow.h"
 #include "graphicitem.h"
 #include "interfaces/icity.hh"
 #include "actors/stop.hh"
@@ -19,7 +20,6 @@ using namespace CourseSide;
 
 namespace Aaro{
 // Forward decleration
-class MainWindow;
 
 
 /**
@@ -60,12 +60,6 @@ public:
      * @return vector to city stops
      */
     std::vector<std::shared_ptr<IStop> > getStops();
-
-    /**
-     * @brief setGameWindow gives city the mainwindow
-     * @param window
-     */
-    void setGameWindow(MainWindow* window);
 
     // test from olden days
     int test();
