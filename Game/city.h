@@ -11,7 +11,6 @@
 #include <QTime>
 #include <QDebug>
 #include <map>
-#include <QMainWindow>
 
 
 using namespace Interface;

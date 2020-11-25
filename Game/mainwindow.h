@@ -2,17 +2,13 @@
 #define MAINWINDOW_H
 
 #include "city.h"
-#include "graphicitem.h"
 #include "character.hh"
 #include "dialog.h"
-#include "offlinereader.hh"
 #include "graphics/simpleactoritem.hh"
-#include "actors/nysse.hh"
 #include "core/logic.hh"
 
 #include <QObject>
 #include <QWidget>
-#include <QDebug>
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QTimer>
@@ -32,6 +28,8 @@ class MainWindow;
 
 namespace Aaro {
 
+class City;
+
 /**
  * @brief The MainWindow class
  * Window where the game is played
@@ -45,7 +43,7 @@ public:
 
     void setTick(int t);
 
-    void addActor(GraphicItem* actorPic);
+    void addActorw(GraphicItem* actorPic);
     void updateCoords(int nX, int nY);
     void setPicture(QImage &img);
 

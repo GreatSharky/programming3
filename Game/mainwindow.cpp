@@ -61,7 +61,7 @@ void MainWindow::setTick(int t)
     timer->setInterval(t);
 }
 
-void MainWindow::addActor(GraphicItem *actorPic)
+void MainWindow::addActorw(GraphicItem *actorPic)
 {
     map->addItem(actorPic);
     actors_.push_back(actorPic);

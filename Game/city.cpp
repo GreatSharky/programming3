@@ -2,7 +2,8 @@
 
 
 Aaro::City::City():
-    clock_(new QTime)
+    clock_(new QTime),
+    game(nullptr)
 {
     qDebug() << "City built";
     gameLive_ = false;
@@ -59,7 +60,7 @@ void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
                                             500-newactor->giveLocation().giveY(),BUS));
         vehicles_.insert({newactor, pic});
         // Lisää mainwondwiin vs
-        game->addActor(pic);
+        game->addActorw(pic.get());
     }
 }
 
