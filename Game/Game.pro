@@ -35,6 +35,7 @@ HEADERS += \
     character.hh \
     city.h \
     dialog.h \
+    graphicitem.h \
     mainwindow.h \
     stopgraphic.h
 
@@ -45,6 +46,7 @@ SOURCES += \
     city.cpp \
     creategame.cpp \
     dialog.cpp \
+    graphicitem.cpp \
     main.cc \
     mainwindow.cpp \
     stopgraphic.cpp

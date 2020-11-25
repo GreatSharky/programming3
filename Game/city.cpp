@@ -10,7 +10,9 @@ Aaro::City::City():
 
 Aaro::City::~City()
 {
-
+    delete bigmap_;
+    delete map_;
+    delete clock_;
 }
 
 void Aaro::City::setBackground(QImage &basicbackground, QImage &bigbackground)
@@ -26,7 +28,9 @@ void Aaro::City::startGame()
 
 void Aaro::City::setClock(QTime clock)
 {
-    clock_->setHMS(clock.hour(),clock.minute(),clock.second());
+    if(clock.isValid()){
+        clock_->setHMS(clock.hour(),clock.minute(),clock.second());
+    }
 }
 
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
@@ -36,27 +40,31 @@ void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 
 void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
 {
-
+    if(std::dynamic_pointer_cast<Interface::IVehicle>(actor)){
+        for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
+            if(it->first == actor){
+                int x = it->first.get()->giveLocation().giveX();
+                int y = 500 - it->first.get()->giveLocation().giveY();
+                it->second.get()->updateGraphic(x,y);
+            }
+        }
+    }
 }
 
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
-    if(dynamic_cast<CourseSide::Nysse*>(newactor.get()) != nullptr){
-        vehicles_.push_back(newactor);
+    if(std::dynamic_pointer_cast<CourseSide::Nysse>(newactor)){
+        qDebug() << "Nysse added";
+        std::shared_ptr<GraphicItem> pic = std::make_shared<GraphicItem>(GraphicItem(newactor->giveLocation().giveX(),
+                                            500-newactor->giveLocation().giveY(),BUS));
+        vehicles_.insert({newactor, pic});
+        // Lisää mainwondwiin vs
     }
-    else {
-        passengers_.push_back(newactor);
-    }
-
 }
 
 void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
 {
-    for(uint it = 0; it < vehicles_.size(); ++it){
-        if(actor.get() == vehicles_[it].get()){
-            vehicles_.erase(vehicles_.begin() + it-1);
-        }
-    }
+
 }
 
 void Aaro::City::actorRemoved(std::shared_ptr<IActor> actor)
@@ -107,9 +115,10 @@ std::vector<std::shared_ptr<IStop> > Aaro::City::getStops()
     return stops_;
 }
 
-std::vector<std::shared_ptr<IActor> > Aaro::City::getBuses()
+
+void Aaro::City::setGameWindow(MainWindow *window)
 {
-    return vehicles_;
+    game = window;
 }
 
 int Aaro::City::test()

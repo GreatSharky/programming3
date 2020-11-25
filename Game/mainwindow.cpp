@@ -36,7 +36,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     map->setBackgroundBrush(*tre.get()->getBackground());
 
     logic = std::make_shared<CourseSide::Logic>(this);
-    logic.get()->takeCity(tre);
+    logic.get()->takeCity(std::dynamic_pointer_cast<Interface::ICity>(tre));
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
     logic->finalizeGameStart();
@@ -44,7 +44,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
 
     dude_ = new character(250, 250);
-    addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
+    //addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
     // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
     show();
 
@@ -52,6 +52,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    // Remove graghics
     delete ui;
 }
 
@@ -60,50 +61,15 @@ void MainWindow::setTick(int t)
     timer->setInterval(t);
 }
 
-void MainWindow::addActor(int locX, int locY, GraphicItems type)
+void MainWindow::addActor(GraphicItem *actorPic)
 {
-    if(type == GraphicItems::STOP){
-        StopGraphic *stop = new StopGraphic(locX, locY, type);
-        stops_.push_back(stop);
-        map->addItem(stop);
-        last_ = stop;
-    }
-    else if(type == GraphicItems::BUS){
-        BusGraphic* nActor = new BusGraphic(locX, locY, type);
-        vehicles_.push_back(nActor);
-        map->addItem(nActor);
-        last_ = nActor;
-    }
-    else if(type == NOTHING){
-        SimpleActorItem* nActor = new SimpleActorItem(locX, locY, type);
-        stops_.push_back(nActor);
-        map->addItem(nActor);
-        last_ = nActor;
-    }
+    map->addItem(actorPic);
+    actors_.push_back(actorPic);
 }
 
 bool MainWindow::addInformation()
 {
-    int x;
-    int y;
-    //add stops
-    // auto iterator did not function fro these loops
-    qDebug() << "Stops koko" << tre.get()->getStops().size();
-    for(uint it = 0;it < tre.get()->getStops().size();++it){
-        x = tre.get()->getStops()[it].get()->getLocation().giveX();
-        y = 500-tre.get()->getStops()[it].get()->getLocation().giveY();
-        addActor(x,y, STOP);
-    }
 
-    // add busses
-    qDebug() << "Buses koko" << tre.get()->getBuses().size();
-    for (uint it = 0; it < tre.get()->getBuses().size();++it) {
-        x = tre.get()->getBuses()[it].get()->giveLocation().giveX();
-        y = 500-tre.get()->getBuses()[it].get()->giveLocation().giveY();
-        addActor(x, y, BUS);
-
-    }
-    return true;
 }
 
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
@@ -142,26 +108,11 @@ void MainWindow::advanceGame()
     qDebug() << "advanceGame()";
     logic.get()->advance();
     dude_->move(dude_->giveLocation());
-    updateBuses();
+    map->update();
     action_taken_ = false;
 }
 
 void MainWindow::updateBuses()
 {
-    int x;
-    int y;
-    for (int it = 0; it < vehicles_.size(); ++it) {
-        BusGraphic* bus = dynamic_cast<BusGraphic*>(vehicles_[it]);
-        if(bus != nullptr){
-            if(!tre.get()->getBuses()[it].get()->isRemoved()){
-                x = tre.get()->getBuses()[it].get()->giveLocation().giveX();
-                y = 500 - tre.get()->getBuses()[it].get()->giveLocation().giveY();
-                bus->updateGraphic(x,y);
-            }
-            else{
-                // removes removed vechile
-                vehicles_.erase(vehicles_.begin()+it-1);
-            }
-        }
-    }
+
 }

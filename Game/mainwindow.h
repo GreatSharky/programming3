@@ -2,8 +2,7 @@
 #define MAINWINDOW_H
 
 #include "city.h"
-#include "stopgraphic.h"
-#include "busgraphic.h"
+#include "graphicitem.h"
 #include "character.hh"
 #include "dialog.h"
 #include "offlinereader.hh"
@@ -27,8 +26,6 @@
 
 #include <QKeyEvent>
 
-enum GraphicItems {NOTHING, STOP, BUS, PASSENGER, other};
-
 namespace Ui {
 class MainWindow;
 }
@@ -47,7 +44,7 @@ public:
 
     void setTick(int t);
 
-    void addActor(int locX, int locY, GraphicItems type = NOTHING);
+    void addActor(GraphicItem* actorPic);
     void updateCoords(int nX, int nY);
     void setPicture(QImage &img);
 
@@ -67,8 +64,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
-    QVector<QGraphicsPixmapItem*> vehicles_;
-    QVector<QGraphicsItem*> stops_;
+    QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
     character *dude_;
     QPushButton *startbutton_;
@@ -77,8 +73,6 @@ private:
     std::shared_ptr<CourseSide::Logic> logic;
 
     std::shared_ptr<City> tre;
-
-    bool dataread_;
 
     int width_ = 500; //pxls
     int height_ = 500;
