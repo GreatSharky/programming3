@@ -40,7 +40,7 @@ void Aaro::City::setClock(QTime clock)
 
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 {
-    GraphicItem* pic = new GraphicItem(stop.get()->getLocation().giveX(), 500- stop.get()->getLocation().giveY(), STOP);
+    StopGraphic* pic = new StopGraphic(stop.get()->getLocation().giveX(), 500- stop.get()->getLocation().giveY(), STOP);
     stops_.insert({stop, pic});
 }
 
@@ -51,8 +51,8 @@ void Aaro::City::startGame()
 
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
-    if(std::dynamic_pointer_cast<CourseSide::Nysse>(newactor)){
-        GraphicItem* pic = new GraphicItem(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(),BUS);
+    if(dynamic_cast<CourseSide::Nysse*>(newactor.get()) != nullptr){
+        BusGraphic* pic = new BusGraphic(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(),BUS);
         vehicles_.insert({newactor, pic});
     }
 }
@@ -89,16 +89,7 @@ bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
 
 void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
 {
-    if(dynamic_cast<IVehicle*>(actor.get())!= nullptr){
-        for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
-            if(it->first == actor){
-                int x = it->first.get()->giveLocation().giveX();
-                int y = 500 - it->first.get()->giveLocation().giveY();
-                it->second->updateGraphic(x,y);
-                break;
-            }
-        }
-    }
+
 }
 
 std::vector<std::shared_ptr<IActor> > Aaro::City::getNearbyActors(Location loc) const
@@ -124,12 +115,12 @@ QImage* Aaro::City::getBackground()
     }
 }
 
-std::map<std::shared_ptr<IStop>, Aaro::GraphicItem *> Aaro::City::getStops()
+std::map<std::shared_ptr<IStop>, QGraphicsPixmapItem *> Aaro::City::getStops()
 {
     return stops_;
 }
 
-std::map<std::shared_ptr<IActor>, Aaro::GraphicItem *> Aaro::City::getVehicles()
+std::map<std::shared_ptr<IActor>, QGraphicsPixmapItem *> Aaro::City::getVehicles()
 {
     return vehicles_;
 }

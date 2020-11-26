@@ -5,6 +5,7 @@
 #include "statistics.hh"
 #include "dialog.h"
 #include "graphicitem.h"
+#include "busgraphic.h"
 #include "city.h"
 #include "graphics/simpleactoritem.hh"
 #include "core/logic.hh"
@@ -44,7 +45,7 @@ public:
 
     void setTick(int t);
 
-    void addActor(GraphicItem* actorPic);
+    void addActor(QGraphicsPixmapItem* actorPic);
     void updateCoords(int nX, int nY);
     void setPicture(QImage &img);
     void updateGraphics();
@@ -64,8 +65,8 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
-    QVector<GraphicItem*> stops_;
-    QVector<GraphicItem*> actors_;
+    QVector<QGraphicsPixmapItem*> stops_;
+    QVector<QGraphicsPixmapItem*> actors_;
     QGraphicsItem* last_;
     character *dude_;
     QPushButton *startbutton_;

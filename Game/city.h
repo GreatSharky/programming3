@@ -2,6 +2,8 @@
 #define CITY_H
 
 #include "graphicitem.h"
+#include "busgraphic.h"
+#include "stopgraphic.h"
 #include "interfaces/icity.hh"
 #include "actors/stop.hh"
 #include "actors/nysse.hh"
@@ -61,9 +63,9 @@ public:
      * @brief getStops
      * @return vector to city stops
      */
-    std::map<std::shared_ptr<IStop>, GraphicItem *> getStops();
+    std::map<std::shared_ptr<IStop>, QGraphicsPixmapItem *> getStops();
 
-    std::map<std::shared_ptr<Interface::IActor>, GraphicItem *> getVehicles();
+    std::map<std::shared_ptr<Interface::IActor>, QGraphicsPixmapItem *> getVehicles();
 
     // test from olden days
     int test();
@@ -71,8 +73,8 @@ public:
 private:
     QImage* map_;
     QImage* bigmap_;
-    std::map<std::shared_ptr<IStop>, GraphicItem* > stops_;
-    std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles_;
+    std::map<std::shared_ptr<IStop>, QGraphicsPixmapItem* > stops_;
+    std::map<std::shared_ptr<Interface::IActor>, QGraphicsPixmapItem* > vehicles_;
     std::vector<std::shared_ptr<IActor> > passengers_;
 
     QTime* clock_;

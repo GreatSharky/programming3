@@ -72,7 +72,7 @@ void MainWindow::setTick(int t)
     timer->setInterval(t);
 }
 
-void MainWindow::addActor(GraphicItem *actorPic)
+void MainWindow::addActor(QGraphicsPixmapItem *actorPic)
 {
     map->addItem(actorPic);
     actors_.push_back(actorPic);
@@ -81,26 +81,27 @@ void MainWindow::addActor(GraphicItem *actorPic)
 void MainWindow::updateGraphics()
 {
 
-    std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles =
+    std::map<std::shared_ptr<Interface::IActor>, QGraphicsPixmapItem * > vehicles =
             tre.get()->getVehicles();
 
     for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
-        bool in = false;
-        for(auto iter = actors_.begin(); iter != actors_.end(); ++iter){
-            if(*iter == it->second){
-                in = true;
-                break;
+        BusGraphic* bus = dynamic_cast<BusGraphic*>(it->second);
+        if(bus != nullptr){
+            if(!actors_.contains(bus)){
+                addActor(bus);
             }
-        }
-        if(!in){
-            addActor(it->second);
+            int x = it->first.get()->giveLocation().giveX();
+            int y = it->first.get()->giveLocation().giveY();
+            bus->updateGraphic(x,y);
         }
     }
+    map->update();
 }
 
 void MainWindow::addStops()
 {
-    std::map<std::shared_ptr<Interface::IStop>, GraphicItem* > stops = tre.get()->getStops();
+    std::map<std::shared_ptr<Interface::IStop>, QGraphicsPixmapItem* > stops =
+            tre.get()->getStops();
     for(auto it = stops.begin(); it != stops.end(); ++it){
         map->addItem(it->second);
         stops_.push_back(it->second);
@@ -142,8 +143,6 @@ void MainWindow::advanceGame()
 {
     qDebug() << "advanceGame()";
     logic.get()->advance();
-    dude_->move(dude_->giveLocation());
     updateGraphics();
-    map->update();
     action_taken_ = false;
 }
