@@ -28,7 +28,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     startbutton_ = new QPushButton("start", this);
     startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
-    installEventFilter(this);
+    //installEventFilter(this);
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
     tre = std::make_shared<City>();
@@ -125,7 +125,7 @@ void MainWindow::on_startbutton_clicked()
 void MainWindow::advanceGame()
 {
     qDebug() << "advanceGame()";
-    logic.get()->advance();
+    logic.get()->increaseTime();
     dude_->move(dude_->giveLocation());
     map->update();
     action_taken_ = false;
