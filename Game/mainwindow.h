@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "character.hh"
+#include "statistics.hh"
 #include "dialog.h"
 #include "graphicitem.h"
 #include "city.h"

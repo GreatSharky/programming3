@@ -37,6 +37,7 @@ HEADERS += \
     dialog.h \
     graphicitem.h \
     mainwindow.h \
+    statistics.hh \
     stopgraphic.h
 
 SOURCES += \
@@ -49,6 +50,7 @@ SOURCES += \
     graphicitem.cpp \
     main.cc \
     mainwindow.cpp \
+    statistics.cpp \
     stopgraphic.cpp
 
 FORMS += \
