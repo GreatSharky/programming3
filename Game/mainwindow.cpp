@@ -31,16 +31,9 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     installEventFilter(this);
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
-    tre = std::make_shared<City>();
-    tre.get()->setBackground(pic,pic);
-    map->setBackgroundBrush(*tre.get()->getBackground());
+    setPicture(pic);
 
-    logic = std::make_shared<CourseSide::Logic>(this);
-    logic.get()->takeCity(std::dynamic_pointer_cast<Interface::ICity>(tre));
-    logic.get()->fileConfig();
-    logic.get()->setTime(12,0);
-    logic->finalizeGameStart();
-    addInformation();
+
 
 
     dude_ = new character(250, 250);
@@ -61,10 +54,15 @@ void MainWindow::setTick(int t)
     timer->setInterval(t);
 }
 
-void MainWindow::addActorw(GraphicItem *actorPic)
+void MainWindow::addActor(BusGraphic *actorPic)
 {
     map->addItem(actorPic);
     actors_.push_back(actorPic);
+}
+
+void MainWindow::setPicture(QImage &img)
+{
+    map->setBackgroundBrush(img);
 }
 
 bool MainWindow::addInformation()
@@ -101,18 +99,4 @@ void MainWindow::on_startbutton_clicked()
     timer->start();
     emit gameStarted();
     delete startbutton_;
-}
-
-void MainWindow::advanceGame()
-{
-    qDebug() << "advanceGame()";
-    logic.get()->advance();
-    dude_->move(dude_->giveLocation());
-    map->update();
-    action_taken_ = false;
-}
-
-void MainWindow::updateBuses()
-{
-
 }

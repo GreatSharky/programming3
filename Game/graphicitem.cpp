@@ -1,8 +1,11 @@
 #include "graphicitem.h"
 
 Aaro::GraphicItem::GraphicItem(int x, int y, GraphicsItem type):
-    QGraphicsPixmapItem(), x_(x), y_(y), type_(type)
+    QGraphicsPixmapItem()
 {
+    x_ = x;
+    y_ = y;
+    type_ = type;
     selectIcon();
     setPixmap(picture);
     setX(x_);
