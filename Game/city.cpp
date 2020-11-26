@@ -2,8 +2,7 @@
 
 
 Aaro::City::City():
-    clock_(new QTime),
-    game(nullptr)
+    clock_(new QTime)
 {
     qDebug() << "City built";
     gameLive_ = false;
@@ -22,11 +21,6 @@ void Aaro::City::setBackground(QImage &basicbackground, QImage &bigbackground)
     bigmap_ = &bigbackground;
 }
 
-void Aaro::City::startGame()
-{
-    gameLive_ = true;
-}
-
 void Aaro::City::setClock(QTime clock)
 {
     if(clock.isValid()){
@@ -39,28 +33,16 @@ void Aaro::City::addStop(std::shared_ptr<IStop> stop)
     stops_.push_back(stop);
 }
 
-void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
+void Aaro::City::startGame()
 {
-    if(std::dynamic_pointer_cast<Interface::IVehicle>(actor)){
-        for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
-            if(it->first == actor){
-                int x = it->first.get()->giveLocation().giveX();
-                int y = 500 - it->first.get()->giveLocation().giveY();
-                it->second.get()->updateGraphic(x,y);
-            }
-        }
-    }
+    gameLive_ = true;
 }
 
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
     if(std::dynamic_pointer_cast<CourseSide::Nysse>(newactor)){
-        qDebug() << "Nysse added";
-        std::shared_ptr<GraphicItem> pic = std::make_shared<GraphicItem>(GraphicItem(newactor->giveLocation().giveX(),
-                                            500-newactor->giveLocation().giveY(),BUS));
+        GraphicItem* pic = new GraphicItem(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(),BUS);
         vehicles_.insert({newactor, pic});
-        // Lisää mainwondwiin vs
-        game->addActor(pic.get());
     }
 }
 
@@ -72,16 +54,6 @@ void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
 void Aaro::City::actorRemoved(std::shared_ptr<IActor> actor)
 {
 
-}
-
-std::vector<std::shared_ptr<IActor> > Aaro::City::getNearbyActors(Location loc) const
-{
-
-}
-
-bool Aaro::City::isGameOver() const
-{
-    return false;
 }
 
 bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
@@ -104,6 +76,29 @@ bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
     return false;
 }
 
+void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
+{
+    if(std::dynamic_pointer_cast<Interface::IVehicle>(actor)){
+        for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
+            if(it->first == actor){
+                int x = it->first.get()->giveLocation().giveX();
+                int y = 500 - it->first.get()->giveLocation().giveY();
+                it->second->updateGraphic(x,y);
+            }
+        }
+    }
+}
+
+std::vector<std::shared_ptr<IActor> > Aaro::City::getNearbyActors(Location loc) const
+{
+
+}
+
+bool Aaro::City::isGameOver() const
+{
+    return false;
+}
+
 QImage* Aaro::City::getBackground()
 {
     if(map_ != nullptr){
@@ -122,9 +117,9 @@ std::vector<std::shared_ptr<IStop> > Aaro::City::getStops()
     return stops_;
 }
 
-void Aaro::City::setGameWindow(Aaro::MainWindow *window)
+std::map<std::shared_ptr<IActor>, Aaro::GraphicItem *> Aaro::City::getVehicles()
 {
-    game = window;
+    return vehicles_;
 }
 
 int Aaro::City::test()

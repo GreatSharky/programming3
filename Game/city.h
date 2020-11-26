@@ -22,7 +22,6 @@ class MainWindow;
 
 namespace Aaro{
 // Forward decleration
-class MainWindow;
 
 
 /**
@@ -40,16 +39,16 @@ public:
      * @brief defined in ICity
      */
     void setBackground(QImage &basicbackground, QImage &bigbackground) override;
-    void startGame() override;
     void setClock(QTime clock) override;
     void addStop(std::shared_ptr<IStop> stop) override;
-    void actorMoved(std::shared_ptr<IActor> actor) override;
+    void startGame() override;
     void addActor(std::shared_ptr<IActor> newactor) override;
     void removeActor(std::shared_ptr<IActor> actor) override;
     void actorRemoved(std::shared_ptr<IActor> actor) override;
+    bool findActor(std::shared_ptr<IActor> actor) const override;
+    void actorMoved(std::shared_ptr<IActor> actor) override;
     std::vector<std::shared_ptr<IActor> > getNearbyActors(Location loc) const override;
     bool isGameOver() const override;
-    bool findActor(std::shared_ptr<IActor> actor) const override;
 
     /**
      * @brief getBackground
@@ -64,11 +63,7 @@ public:
      */
     std::vector<std::shared_ptr<IStop> > getStops();
 
-    /**
-     * @brief setGameWindow gives city the mainwindow
-     * @param window
-     */
-    void setGameWindow(MainWindow* window);
+    std::map<std::shared_ptr<Interface::IActor>, GraphicItem *> getVehicles();
 
     // test from olden days
     int test();
@@ -77,12 +72,11 @@ private:
     QImage* map_;
     QImage* bigmap_;
     std::vector<std::shared_ptr<IStop> > stops_;
-    std::map<std::shared_ptr<Interface::IActor>, std::shared_ptr<GraphicItem> > vehicles_;
+    std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles_;
     std::vector<std::shared_ptr<IActor> > passengers_;
 
     QTime* clock_;
 
-    Aaro::MainWindow* game;
 
 
     bool gameLive_;

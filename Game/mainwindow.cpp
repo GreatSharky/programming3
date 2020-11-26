@@ -40,7 +40,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
     logic->finalizeGameStart();
-    addInformation();
+    addGraphics();
 
 
     dude_ = new character(250, 250);
@@ -67,9 +67,28 @@ void MainWindow::addActor(GraphicItem *actorPic)
     actors_.push_back(actorPic);
 }
 
-bool MainWindow::addInformation()
+void MainWindow::addGraphics()
 {
+    std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles =
+            tre.get()->getVehicles();
+    QList<QGraphicsItem*> list = map->items();
 
+    for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
+        qDebug() << "addGraphics() loop 1";
+        bool in = false;
+        for(auto iter = actors_.begin(); iter != actors_.end(); ++iter){
+            qDebug() << "loop2";
+            if(*iter == it->second){
+                in = true;
+                break;
+            }
+        }
+        if(!in){
+            map->addItem(it->second);
+            actors_.push_back(it->second);
+        }
+    }
+    map->update();
 }
 
 bool MainWindow::eventFilter(QObject *object, QEvent *event)

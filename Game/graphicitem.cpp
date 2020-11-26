@@ -26,15 +26,12 @@ void Aaro::GraphicItem::updateGraphic(int newX, int newY)
             setPixmap(picture);
         }
     }
-    else if( dir_ > 0){
+    else if( dir_ >= 0){
         if(x_ - newX > 0){
             dir_ = 1;
             picture = picture.transformed(QTransform().scale(-1,1));
             setPixmap(picture);
         }
-    }
-    else{
-        qDebug() << "Not possible";
     }
     x_ = newX;
     y_ = newY;
