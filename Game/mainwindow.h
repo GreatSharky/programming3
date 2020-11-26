@@ -47,7 +47,8 @@ public:
     void addActor(GraphicItem* actorPic);
     void updateCoords(int nX, int nY);
     void setPicture(QImage &img);
-    void addGraphics();
+    void updateGraphics();
+    void addStops();
 
 signals:
     void gameStarted();
@@ -55,7 +56,6 @@ signals:
 private slots:
     void on_startbutton_clicked();
     void advanceGame();
-    void updateBuses();
 
 
 private:
@@ -64,6 +64,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
+    QVector<GraphicItem*> stops_;
     QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
     character *dude_;

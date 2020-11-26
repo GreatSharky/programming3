@@ -13,6 +13,16 @@ Aaro::City::~City()
     delete bigmap_;
     delete map_;
     delete clock_;
+    for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
+        if(it->second != nullptr){
+            delete it->second;
+        }
+    }
+    for(auto it = stops_.begin(); it != stops_.end(); ++it){
+        if(it->second != nullptr){
+            delete it->second;
+        }
+    }
 }
 
 void Aaro::City::setBackground(QImage &basicbackground, QImage &bigbackground)
@@ -30,7 +40,8 @@ void Aaro::City::setClock(QTime clock)
 
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 {
-    stops_.push_back(stop);
+    GraphicItem* pic = new GraphicItem(stop.get()->getLocation().giveX(), 500- stop.get()->getLocation().giveY(), STOP);
+    stops_.insert({stop, pic});
 }
 
 void Aaro::City::startGame()
@@ -68,7 +79,7 @@ bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
     else if(dynamic_cast<IStop*>(actor.get()) != nullptr){
         IStop* stp = dynamic_cast<IStop*>(actor.get());
         for(auto it = stops_.begin(); it != stops_.end(); ++it){
-            if(stp == it->get()){
+            if(stp == it->first.get()){
                 return true;
             }
         }
@@ -78,12 +89,13 @@ bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
 
 void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
 {
-    if(std::dynamic_pointer_cast<Interface::IVehicle>(actor)){
+    if(dynamic_cast<IVehicle*>(actor.get())!= nullptr){
         for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
             if(it->first == actor){
                 int x = it->first.get()->giveLocation().giveX();
                 int y = 500 - it->first.get()->giveLocation().giveY();
                 it->second->updateGraphic(x,y);
+                break;
             }
         }
     }
@@ -112,7 +124,7 @@ QImage* Aaro::City::getBackground()
     }
 }
 
-std::vector<std::shared_ptr<IStop> > Aaro::City::getStops()
+std::map<std::shared_ptr<IStop>, Aaro::GraphicItem *> Aaro::City::getStops()
 {
     return stops_;
 }

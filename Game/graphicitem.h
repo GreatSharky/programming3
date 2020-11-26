@@ -21,6 +21,7 @@ public:
 
 private:
     void selectIcon();
+
     int x_;
     int y_;
     GraphicsItem type_;

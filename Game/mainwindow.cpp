@@ -40,7 +40,8 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
     logic->finalizeGameStart();
-    addGraphics();
+    addStops();
+    updateGraphics();
 
 
     dude_ = new character(250, 250);
@@ -53,6 +54,16 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     // Remove graghics
+    for(auto it = actors_.begin(); it != actors_.end(); ++it){
+        if(it != nullptr){
+            delete it;
+        }
+    }
+    for(auto it = stops_.begin(); it != stops_.end(); ++it){
+        if(it != nullptr){
+            delete it;
+        }
+    }
     delete ui;
 }
 
@@ -67,28 +78,33 @@ void MainWindow::addActor(GraphicItem *actorPic)
     actors_.push_back(actorPic);
 }
 
-void MainWindow::addGraphics()
+void MainWindow::updateGraphics()
 {
+
     std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles =
             tre.get()->getVehicles();
-    QList<QGraphicsItem*> list = map->items();
 
     for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
-        qDebug() << "addGraphics() loop 1";
         bool in = false;
         for(auto iter = actors_.begin(); iter != actors_.end(); ++iter){
-            qDebug() << "loop2";
             if(*iter == it->second){
                 in = true;
                 break;
             }
         }
         if(!in){
-            map->addItem(it->second);
-            actors_.push_back(it->second);
+            addActor(it->second);
         }
     }
-    map->update();
+}
+
+void MainWindow::addStops()
+{
+    std::map<std::shared_ptr<Interface::IStop>, GraphicItem* > stops = tre.get()->getStops();
+    for(auto it = stops.begin(); it != stops.end(); ++it){
+        map->addItem(it->second);
+        stops_.push_back(it->second);
+    }
 }
 
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
@@ -127,11 +143,7 @@ void MainWindow::advanceGame()
     qDebug() << "advanceGame()";
     logic.get()->advance();
     dude_->move(dude_->giveLocation());
+    updateGraphics();
     map->update();
     action_taken_ = false;
-}
-
-void MainWindow::updateBuses()
-{
-
 }

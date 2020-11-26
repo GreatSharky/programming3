@@ -61,7 +61,7 @@ public:
      * @brief getStops
      * @return vector to city stops
      */
-    std::vector<std::shared_ptr<IStop> > getStops();
+    std::map<std::shared_ptr<IStop>, GraphicItem *> getStops();
 
     std::map<std::shared_ptr<Interface::IActor>, GraphicItem *> getVehicles();
 
@@ -71,7 +71,7 @@ public:
 private:
     QImage* map_;
     QImage* bigmap_;
-    std::vector<std::shared_ptr<IStop> > stops_;
+    std::map<std::shared_ptr<IStop>, GraphicItem* > stops_;
     std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles_;
     std::vector<std::shared_ptr<IActor> > passengers_;
 

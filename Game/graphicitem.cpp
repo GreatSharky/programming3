@@ -1,7 +1,7 @@
 #include "graphicitem.h"
 
 Aaro::GraphicItem::GraphicItem(int x, int y, GraphicsItem type):
-    QGraphicsPixmapItem(nullptr), x_(x), y_(y), type_(type), dir_(0)
+    QGraphicsPixmapItem(nullptr), x_(x), y_(y), type_(type), dir_(1)
 {
     selectIcon();
     setPixmap(picture);
@@ -20,14 +20,14 @@ void Aaro::GraphicItem::updateGraphic(int newX, int newY)
         return;
     }
     if(dir_ < 0){
-        if(x_ - newX < 0){
+        if(x_ - newX < -5){
             dir_ = -1;
             picture = picture.transformed(QTransform().scale(-1,1));
             setPixmap(picture);
         }
     }
     else if( dir_ >= 0){
-        if(x_ - newX > 0){
+        if(x_ - newX > 5){
             dir_ = 1;
             picture = picture.transformed(QTransform().scale(-1,1));
             setPixmap(picture);
