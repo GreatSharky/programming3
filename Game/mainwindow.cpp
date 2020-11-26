@@ -91,11 +91,11 @@ void MainWindow::updateGraphics()
                 addActor(bus);
             }
             int x = it->first.get()->giveLocation().giveX();
-            int y = it->first.get()->giveLocation().giveY();
+            int y = 500 - it->first.get()->giveLocation().giveY();
             bus->updateGraphic(x,y);
         }
     }
-    map->update();
+
 }
 
 void MainWindow::addStops()
