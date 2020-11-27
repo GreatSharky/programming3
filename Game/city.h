@@ -59,11 +59,26 @@ public:
 
     /**
      * @brief getStops
-     * @return vector to city stops
+     * @return map of city stops
      */
     std::map<std::shared_ptr<IStop>, GraphicItem *> getStops();
 
+    /**
+     * @brief getVehicles
+     * @return map of city vehicles
+     */
     std::map<std::shared_ptr<Interface::IActor>, GraphicItem *> getVehicles();
+
+    /**
+     * @brief getRemoved
+     * @return removed graphic items
+     */
+    std::vector<GraphicItem *> getRemoved();
+
+    /**
+     * @brief clearRemoved clears removed items
+     */
+    void clearRemoved();
 
     // test from olden days
     int test();
@@ -73,6 +88,7 @@ private:
     QImage* bigmap_;
     std::map<std::shared_ptr<IStop>, GraphicItem* > stops_;
     std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles_;
+    std::vector<GraphicItem*> removedItems_;
     std::vector<std::shared_ptr<IActor> > passengers_;
 
     QTime* clock_;

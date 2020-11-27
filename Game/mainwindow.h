@@ -48,6 +48,7 @@ public:
     void updateCoords(int nX, int nY);
     void setPicture(QImage &img);
     void addGraphics();
+    void updateGraphics();
 
 signals:
     void gameStarted();
@@ -58,6 +59,7 @@ private slots:
 
 
 private:
+    bool inMap(GraphicItem* item);
     bool eventFilter(QObject *object, QEvent *event);
 
     Ui::MainWindow *ui;

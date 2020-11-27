@@ -9,12 +9,11 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     action_taken_(false)
 {
     ui->setupUi(this);
-    this->setFixedSize(height_,width_);
     Dialog* startDialog = new Dialog(this);
     startDialog->exec();
 
     qDebug() << "Window built";
-    this->setFixedSize(height_ + 200, width_ + 200); // Lisäilin vähä
+    this->setFixedSize(width_ + 400, height_ + 200); // Lisäilin vähä
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -90,6 +89,25 @@ void MainWindow::addGraphics()
     map->update();
 }
 
+void MainWindow::updateGraphics()
+{
+    std::vector<GraphicItem*> removed = tre.get()->getRemoved();
+    for(auto it = removed.begin(); it != removed.end(); ++it){
+        GraphicItem* n = *it;
+        map->removeItem(n);
+        delete n;
+    }
+    tre.get()->clearRemoved();
+
+    std::map<std::shared_ptr<Interface::IActor>, GraphicItem* >  vehicles =
+            tre.get()->getVehicles();
+    for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
+        if(!inMap(it->second)){
+            addActor(it->second);
+        }
+    }
+}
+
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
 {
     if(event->type() == QEvent::KeyPress && action_taken_ == false){
@@ -128,6 +146,20 @@ void MainWindow::advanceGame()
     qDebug() << "advanceGame()";
     logic.get()->increaseTime();
     dude_->move(dude_->giveLocation());
+    updateGraphics();
     map->update();
     action_taken_ = false;
+}
+
+bool MainWindow::inMap(GraphicItem * item)
+{
+    for(auto it = actors_.begin(); it != actors_.end(); ++it){
+        if(*it == item){
+            return true;
+        }
+        else if(*it == nullptr){
+            actors_.erase(it);
+        }
+    }
+    return false;
 }

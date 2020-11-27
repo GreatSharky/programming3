@@ -5,6 +5,7 @@ Aaro::City::City():
     clock_(new QTime)
 {
     qDebug() << "City built";
+
     gameLive_ = false;
 }
 
@@ -49,12 +50,20 @@ void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 
 void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
 {
-
+    for(auto it =  vehicles_.begin(); it != vehicles_.end(); ++it){
+        if(actor == it->first){
+            removedItems_.push_back(it->second);
+            if(actor.get()->isRemoved()){
+                actor.get()->remove();
+            }
+            vehicles_.erase(it);
+        }
+    }
 }
 
 void Aaro::City::actorRemoved(std::shared_ptr<IActor> actor)
 {
-
+    return;
 }
 
 bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
@@ -121,6 +130,16 @@ std::map<std::shared_ptr<IStop>, Aaro::GraphicItem *> Aaro::City::getStops()
 std::map<std::shared_ptr<IActor>, Aaro::GraphicItem *> Aaro::City::getVehicles()
 {
     return vehicles_;
+}
+
+std::vector<Aaro::GraphicItem *> Aaro::City::getRemoved()
+{
+    return removedItems_;
+}
+
+void Aaro::City::clearRemoved()
+{
+    removedItems_.clear();
 }
 
 int Aaro::City::test()
