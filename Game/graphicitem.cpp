@@ -20,15 +20,15 @@ void Aaro::GraphicItem::updateGraphic(int newX, int newY)
         return;
     }
     if(dir_ < 0){
-        if(x_ - newX < 0){
-            dir_ = -1;
+        if(x_ - newX > 0){
+            dir_ = 1;
             picture = picture.transformed(QTransform().scale(-1,1));
             setPixmap(picture);
         }
     }
     else if( dir_ >= 0){
-        if(x_ - newX > 0){
-            dir_ = 1;
+        if(x_ - newX < 0){
+            dir_ = -1;
             picture = picture.transformed(QTransform().scale(-1,1));
             setPixmap(picture);
         }
