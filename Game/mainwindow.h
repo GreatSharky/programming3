@@ -55,7 +55,6 @@ signals:
 private slots:
     void on_startbutton_clicked();
     void advanceGame();
-    void updateBuses();
 
 
 private:

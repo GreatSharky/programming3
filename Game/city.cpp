@@ -30,7 +30,8 @@ void Aaro::City::setClock(QTime clock)
 
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 {
-    stops_.push_back(stop);
+    GraphicItem* stpgraphic = new GraphicItem(stop.get()->getLocation().giveX(), 500-stop.get()->getLocation().giveY(), STOP);
+    stops_.insert({stop, stpgraphic});
 }
 
 void Aaro::City::startGame()
@@ -68,7 +69,7 @@ bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
     else if(dynamic_cast<IStop*>(actor.get()) != nullptr){
         IStop* stp = dynamic_cast<IStop*>(actor.get());
         for(auto it = stops_.begin(); it != stops_.end(); ++it){
-            if(stp == it->get()){
+            if(stp == it->first.get()){
                 return true;
             }
         }
@@ -112,7 +113,7 @@ QImage* Aaro::City::getBackground()
     }
 }
 
-std::vector<std::shared_ptr<IStop> > Aaro::City::getStops()
+std::map<std::shared_ptr<IStop>, Aaro::GraphicItem *> Aaro::City::getStops()
 {
     return stops_;
 }

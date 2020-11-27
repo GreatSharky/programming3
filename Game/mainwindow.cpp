@@ -39,7 +39,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->takeCity(std::dynamic_pointer_cast<Interface::ICity>(tre));
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
-    logic->finalizeGameStart();
     addGraphics();
 
 
@@ -69,23 +68,23 @@ void MainWindow::addActor(GraphicItem *actorPic)
 
 void MainWindow::addGraphics()
 {
+    std::map<std::shared_ptr<Interface::IStop>, GraphicItem*> stops = tre.get()->getStops();
+    for(auto it = stops.begin(); it != stops.end(); ++it){
+        map->addItem(it->second);
+    }
     std::map<std::shared_ptr<Interface::IActor>, GraphicItem* > vehicles =
             tre.get()->getVehicles();
-    QList<QGraphicsItem*> list = map->items();
-
+    qDebug() << vehicles.size();
     for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
-        qDebug() << "addGraphics() loop 1";
         bool in = false;
         for(auto iter = actors_.begin(); iter != actors_.end(); ++iter){
-            qDebug() << "loop2";
             if(*iter == it->second){
                 in = true;
                 break;
             }
         }
         if(!in){
-            map->addItem(it->second);
-            actors_.push_back(it->second);
+            addActor(it->second);
         }
     }
     map->update();
@@ -117,6 +116,8 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
 
 void MainWindow::on_startbutton_clicked()
 {
+    logic->finalizeGameStart();
+    addGraphics();
     timer->start();
     emit gameStarted();
     delete startbutton_;
@@ -129,9 +130,4 @@ void MainWindow::advanceGame()
     dude_->move(dude_->giveLocation());
     map->update();
     action_taken_ = false;
-}
-
-void MainWindow::updateBuses()
-{
-
 }
