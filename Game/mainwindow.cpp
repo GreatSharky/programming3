@@ -39,10 +39,12 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
     addGraphics();
-
     character cha = character(250,250);
     dude_ = std::make_shared<character>(cha);
     map->addItem(dude_.get()->getGraphic());
+
+    dude_.get()->getGraphic()->setFlag(QGraphicsPixmapItem::ItemIsFocusable, true);
+    dude_.get()->getGraphic()->setFocus();
     // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
     show();
 
@@ -109,28 +111,23 @@ void MainWindow::updateGraphics()
     }
 }
 
-bool MainWindow::eventFilter(QObject *object, QEvent *event)
+void MainWindow::keyPressedEvent(QKeyEvent *event)
 {
-    if(event->type() == QEvent::KeyPress && action_taken_ == false){
-        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+   if(action_taken_ == false){
         action_taken_ = true;
-        switch (keyEvent->key()){
-            case Qt::Key_Up:
-                dude_->movement_commands("up");
-                break;
-            case Qt::Key_Down:
-                dude_->movement_commands("down");
-                break;
-            case Qt::Key_Left:
-                dude_->movement_commands("left");
-                break;
-            case Qt::Key_Right:
-                dude_->movement_commands("right");
-                break;
+        if(event->key() == Qt::Key_Left){
+            dude_->movement_commands("left");
+
+        }else if(event->key() == Qt::Key_Down){
+            dude_->movement_commands("down");
+
+        }else if(event->key() == Qt::Key_Up){
+            dude_->movement_commands("up");
+
+        }else if(event->key() == Qt::Key_Right){
+            dude_->movement_commands("right");
         }
-        return QObject::eventFilter(object, event);
     }
-    return true;
 }
 
 void MainWindow::on_startbutton_clicked()

@@ -60,7 +60,7 @@ private slots:
 
 private:
     bool inMap(GraphicItem* item);
-    bool eventFilter(QObject *object, QEvent *event);
+    void keyPressedEvent(QKeyEvent *event);
 
     Ui::MainWindow *ui;
     QGraphicsScene *map;
