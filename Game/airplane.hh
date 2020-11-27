@@ -2,6 +2,7 @@
 #define AIRPLANE_HH
 #include "interfaces/iactor.hh"
 #include "core/location.hh"
+#include "graphicitem.h"
 
 #include <QDebug>
 #include <QString>

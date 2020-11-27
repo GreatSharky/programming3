@@ -48,7 +48,8 @@ void Aaro::GraphicItem::selectIcon()
 {
     if(type_ == STOP){
         QPixmap bigGraphic(":/bus-stop-icon.png");
-        picture = bigGraphic.scaled(40,40);
+        picture = bigGraphic.scaled(35,35);
+        setOffset(QPointF(-20,-32));
     }
     else if(type_ == BUS){
         QPixmap bigGraphic(":/bus-icon.png");
@@ -63,6 +64,7 @@ void Aaro::GraphicItem::selectIcon()
     else if(type_ == PLANE){
         QPixmap bigGraphic(":/plane-icon.png");
         picture = bigGraphic.scaled(40,40);
+        setOffset(-20,-20);
     }
     else {
         qDebug() << "No icon for:" << type_;
