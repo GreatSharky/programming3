@@ -91,21 +91,24 @@ void MainWindow::addGraphics()
 
 void MainWindow::updateGraphics()
 {
-    std::vector<GraphicItem*> removed = tre.get()->getRemoved();
-    for(auto it = removed.begin(); it != removed.end(); ++it){
-        GraphicItem* n = *it;
-        map->removeItem(n);
-        delete n;
-    }
-    tre.get()->clearRemoved();
 
-    std::map<std::shared_ptr<Interface::IActor>, GraphicItem* >  vehicles =
-            tre.get()->getVehicles();
-    for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
-        if(!inMap(it->second)){
-            addActor(it->second);
+        std::vector<GraphicItem*> removed = tre.get()->getRemoved();
+        for(auto it = removed.begin(); it != removed.end(); ++it){
+            GraphicItem* n = *it;
+            map->removeItem(n);
+            delete n;
         }
-    }
+        tre.get()->clearRemoved();
+
+        std::map<std::shared_ptr<Interface::IActor>, GraphicItem* >  vehicles =
+                tre.get()->getVehicles();
+        for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
+            if(!inMap(it->second)){
+                addActor(it->second);
+            }
+        }
+
+
 }
 
 bool MainWindow::eventFilter(QObject *object, QEvent *event)
@@ -143,12 +146,20 @@ void MainWindow::on_startbutton_clicked()
 
 void MainWindow::advanceGame()
 {
-    qDebug() << "advanceGame()";
-    logic.get()->increaseTime();
-    dude_->move(dude_->giveLocation());
-    updateGraphics();
-    map->update();
-    action_taken_ = false;
+    try{
+        qDebug() << "advanceGame()";
+        logic.get()->increaseTime();
+        dude_->move(dude_->giveLocation());
+        updateGraphics();
+        map->update();
+        action_taken_ = false;
+    }
+    catch(InitError const &error){
+        qDebug() << error.what() << error.giveMessage();
+    }
+    catch(GameError const &error){
+        qDebug() << error.what() << error.giveMessage();
+    }
 }
 
 bool MainWindow::inMap(GraphicItem * item)

@@ -59,7 +59,7 @@ void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 
 void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
 {
-    if(!findActor(actor)){
+    if(findActor(actor)){
         for(auto it =  vehicles_.begin(); it != vehicles_.end(); ++it){
             if(actor == it->first){
                 removedItems_.push_back(it->second);
