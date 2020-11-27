@@ -67,7 +67,6 @@ void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
 void Aaro::City::actorRemoved(std::shared_ptr<IActor> actor)
 {
     qDebug() << "someone called actorRemoved" << actor.get();
-    return;
 }
 
 bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
