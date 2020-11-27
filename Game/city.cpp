@@ -24,15 +24,19 @@ void Aaro::City::setBackground(QImage &basicbackground, QImage &bigbackground)
 
 void Aaro::City::setClock(QTime clock)
 {
-    if(clock.isValid()){
-        clock_->setHMS(clock.hour(),clock.minute(),clock.second());
-    }
+    clock_->setHMS(clock.hour(),clock.minute(),clock.second());
 }
 
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 {
-    GraphicItem* stpgraphic = new GraphicItem(stop.get()->getLocation().giveX(), 500-stop.get()->getLocation().giveY(), STOP);
-    stops_.insert({stop, stpgraphic});
+    // Test that location is set right
+    if(stop.get()->getLocation().giveNorthernCoord() != 6700000 && stop.get()->getLocation().giveEasternCoord() != 3500000){
+        GraphicItem* stpgraphic = new GraphicItem(stop.get()->getLocation().giveX(), 500-stop.get()->getLocation().giveY(), STOP);
+        stops_.insert({stop, stpgraphic});
+    }
+    else{
+        throw InitError("addStop, stop location not valid");
+    }
 }
 
 void Aaro::City::startGame()
@@ -42,25 +46,35 @@ void Aaro::City::startGame()
 
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
-    if(std::dynamic_pointer_cast<CourseSide::Nysse>(newactor)){
-        GraphicItem* pic = new GraphicItem(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(),BUS);
-        vehicles_.insert({newactor, pic});
+    if(!findActor(newactor)){
+        if(dynamic_cast<CourseSide::Nysse*>(newactor.get()) != nullptr){
+            GraphicItem* pic = new GraphicItem(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(),BUS);
+            vehicles_.insert({newactor, pic});
+        }
+    }
+    else{
+        throw GameError("addActor, actor already in city");
     }
 }
 
 void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
 {
-    for(auto it =  vehicles_.begin(); it != vehicles_.end(); ++it){
-        if(actor == it->first){
-            removedItems_.push_back(it->second);
-            if(actor.get()->isRemoved()){
-                actor.get()->remove();
-            }/*
+    if(!findActor(actor)){
+        for(auto it =  vehicles_.begin(); it != vehicles_.end(); ++it){
+            if(actor == it->first){
+                removedItems_.push_back(it->second);
+                if(actor.get()->isRemoved()){
+                    actor.get()->remove();
+                }/*
             if(it->second == nullptr){
                 delete it->second;
             }*/
-            vehicles_.erase(it);
+                vehicles_.erase(it);
+            }
         }
+    }
+    else{
+        throw GameError("removeActor, actor not found in the city");
     }
 }
 
