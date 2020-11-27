@@ -13,7 +13,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     startDialog->exec();
 
     qDebug() << "Window built";
-    this->setFixedSize(width_ + 400, height_ + 200); // Lisäilin vähä
+    this->setFixedSize(width_ + 400, height_ + 200);
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -27,7 +27,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     startbutton_ = new QPushButton("start", this);
     startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
-    //installEventFilter(this);
+
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
     tre = std::make_shared<City>();
@@ -39,13 +39,19 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
     addGraphics();
-    character cha = character(250,250);
-    dude_ = std::make_shared<character>(cha);
-    map->addItem(dude_.get()->getGraphic());
+    dude_ = new GraphicItem(250, 250, CHARACTER);
+    //dude_ = std::make_shared<GraphicItem*>(cha);
+    addActor(dude_);
 
-    dude_.get()->getGraphic()->setFlag(QGraphicsPixmapItem::ItemIsFocusable, true);
-    dude_.get()->getGraphic()->setFocus();
-    // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
+    QShortcut* act = new QShortcut( QKeySequence("left"), this );
+    connect(act, SIGNAL(activated()), this, SLOT(move_left()));
+    QShortcut* act2 = new QShortcut( QKeySequence("right"), this );
+    connect(act2, SIGNAL(activated()), this, SLOT(move_right()));
+    QShortcut* act3 = new QShortcut( QKeySequence("up"), this );
+    connect(act3, SIGNAL(activated()), this, SLOT(move_up()));
+    QShortcut* act4 = new QShortcut( QKeySequence("down"), this );
+    connect(act4, SIGNAL(activated()), this, SLOT(move_down()));
+
     show();
 
 }
@@ -114,25 +120,6 @@ void MainWindow::updateGraphics()
 
 }
 
-void MainWindow::keyPressedEvent(QKeyEvent *event)
-{
-   if(action_taken_ == false){
-        action_taken_ = true;
-        if(event->key() == Qt::Key_Left){
-            dude_->movement_commands("left");
-
-        }else if(event->key() == Qt::Key_Down){
-            dude_->movement_commands("down");
-
-        }else if(event->key() == Qt::Key_Up){
-            dude_->movement_commands("up");
-
-        }else if(event->key() == Qt::Key_Right){
-            dude_->movement_commands("right");
-        }
-    }
-}
-
 void MainWindow::on_startbutton_clicked()
 {
     logic->finalizeGameStart();
@@ -146,10 +133,42 @@ void MainWindow::advanceGame()
 {
     qDebug() << "advanceGame()";
     logic.get()->increaseTime();
-    dude_->move(dude_->giveLocation());
+    dude_->getcharacter().move(dude_->getcharacter().giveLocation());
     updateGraphics();
     map->update();
     action_taken_ = false;
+}
+
+void MainWindow::move_left()
+{
+    if(action_taken_ == false){
+        action_taken_ = true;
+        dude_->getcharacter().movement_commands("left");
+    }
+}
+
+void MainWindow::move_right()
+{
+    if(action_taken_ == false){
+        action_taken_ = true;
+        dude_->getcharacter().movement_commands("right");
+    }
+}
+
+void MainWindow::move_up()
+{
+    if(action_taken_ == false){
+        action_taken_ = true;
+        dude_->getcharacter().movement_commands("up");
+    }
+}
+
+void MainWindow::move_down()
+{
+    if(action_taken_ == false){
+        action_taken_ = true;
+        dude_->getcharacter().movement_commands("down");
+    }
 }
 
 bool MainWindow::inMap(GraphicItem * item)

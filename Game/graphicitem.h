@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
+#include <character.hh>
 
 
 enum GraphicsItem {NOTHING, STOP, BUS, PLANE , CHARACTER,OTHER};
@@ -18,6 +19,7 @@ public:
     ~GraphicItem();
     void updateGraphic(int newX, int newY);
     GraphicsItem getType();
+    character getcharacter();
 
 private:
     void selectIcon();
@@ -26,6 +28,7 @@ private:
     GraphicsItem type_;
     int dir_;
     QPixmap picture;
+    character *character_;
 
 };
 

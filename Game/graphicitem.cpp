@@ -44,6 +44,11 @@ GraphicsItem Aaro::GraphicItem::getType()
     return type_;
 }
 
+Aaro::character Aaro::GraphicItem::getcharacter()
+{
+    return *character_;
+}
+
 void Aaro::GraphicItem::selectIcon()
 {
     if(type_ == STOP){
@@ -60,6 +65,7 @@ void Aaro::GraphicItem::selectIcon()
         QPixmap bigGraphic(":/pacmanghost2-icon.png");
         picture = bigGraphic.scaled(30, 30);
         setOffset(QPointF(-15,-15));
+        character_ = new character(x_, y_);
     }
     else if(type_ == PLANE){
         QPixmap bigGraphic(":/plane-icon.png");

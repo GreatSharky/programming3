@@ -6,7 +6,7 @@
 
 #include "interfaces/iactor.hh"
 #include "core/location.hh"
-#include "graphicitem.h"
+
 
 using namespace Interface;
 
@@ -36,14 +36,12 @@ public:
      * @brief getGraphic
      * @return characters graphic
      */
-    GraphicItem *getGraphic();
 
 protected:
     bool removed_; 
 
 private:
     Location location_;
-    GraphicItem * graphic;
 };
 }
 #endif // CHARACTER_HH

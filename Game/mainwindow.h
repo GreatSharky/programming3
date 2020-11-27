@@ -23,6 +23,8 @@
 #include <map>
 
 #include <QKeyEvent>
+#include <QKeySequence>
+#include <QShortcut>
 
 namespace Ui {
 class MainWindow;
@@ -56,18 +58,21 @@ signals:
 private slots:
     void on_startbutton_clicked();
     void advanceGame();
+    void move_left();
+    void move_right();
+    void move_up();
+    void move_down();
 
 
 private:
     bool inMap(GraphicItem* item);
-    void keyPressedEvent(QKeyEvent *event);
 
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
     QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
-    std::shared_ptr<character> dude_;
+    GraphicItem *dude_;
     QPushButton *startbutton_;
     bool action_taken_;
 
