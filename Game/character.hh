@@ -14,11 +14,9 @@ namespace Aaro{
 class character: public IActor
 {
 public:
-    /**
-     * @brief character
-     */
     character(int x, int y);
     ~character();
+
     /**
      * @brief defined in IActor
      */

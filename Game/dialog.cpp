@@ -7,7 +7,6 @@ Dialog::Dialog(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(this, &Dialog::accepted, this, &Dialog::close);
-    //connec(this, &Dialog::rejected, parent(mainwindow), &MainWindow::terminate)
 }
 
 Dialog::~Dialog()
