@@ -1,7 +1,9 @@
 #include "statistics.hh"
 
 Aaro::statistics::statistics() :
-    points_(0)
+    points_(0),
+    planes_(0),
+    buses_(0)
 {
 
 }
@@ -32,7 +34,33 @@ void Aaro::statistics::nysseLeft()
     qDebug() << "Nysse has left the game.";
 }
 
-void Aaro::statistics::add_points(int new_points)
+void Aaro::statistics::add_points(QString vehicle)
 {
-    points_ += new_points;
+    if(vehicle == "bus"){
+        points_ += 10;
+        ++buses_;
+
+    }else if(vehicle == "plane"){
+        points_ += 25;
+        ++planes_;
+
+    }else{
+        throw GameError("Not a valid vehicle.");
+    }
 }
+
+int Aaro::statistics::getPoints()
+{
+    return points_;
+}
+
+int Aaro::statistics::getPlanes()
+{
+    return planes_;
+}
+
+int Aaro::statistics::getBuses()
+{
+    return buses_;
+}
+

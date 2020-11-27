@@ -15,6 +15,7 @@ class airplane: public IActor
 public:
     airplane();
     ~airplane();
+
     /**
      * @brief defined in IActor
      */
@@ -23,6 +24,9 @@ public:
     void remove() override;
     bool isRemoved() const override;
 
+    /**
+     * @brief Chooses the path the air plane will be taking.
+     */
     void path();
 
 protected:
