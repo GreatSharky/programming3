@@ -56,6 +56,9 @@ void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
             if(actor.get()->isRemoved()){
                 actor.get()->remove();
             }
+            if(it->second != nullptr){
+                delete it->second;
+            }
             vehicles_.erase(it);
         }
     }
@@ -63,6 +66,7 @@ void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
 
 void Aaro::City::actorRemoved(std::shared_ptr<IActor> actor)
 {
+    qDebug() << "someone called actorRemoved" << actor.get();
     return;
 }
 
@@ -101,7 +105,14 @@ void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
 
 std::vector<std::shared_ptr<IActor> > Aaro::City::getNearbyActors(Location loc) const
 {
-
+    std::vector<std::shared_ptr<IActor> > near;
+    int distance = 10;
+    for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
+        if(loc.isClose(it->first.get()->giveLocation(), distance)){
+            near.push_back(it->first);
+        }
+    }
+    return near;
 }
 
 bool Aaro::City::isGameOver() const
