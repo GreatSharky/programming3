@@ -118,7 +118,7 @@ QImage* Aaro::City::getBackground()
         return bigmap_;
     }
     else{
-        // throw error
+        throw GameError("No valid map.");
     }
 }
 

@@ -52,6 +52,7 @@ MainWindow::~MainWindow()
 {
     // Remove graghics
     delete ui;
+    delete timer;
 }
 
 void MainWindow::setTick(int t)

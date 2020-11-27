@@ -5,7 +5,7 @@
 #include "interfaces/icity.hh"
 #include "actors/stop.hh"
 #include "actors/nysse.hh"
-
+#include "errors/gameerror.hh"
 
 #include <QString>
 #include <QTime>
