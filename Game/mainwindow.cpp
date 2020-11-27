@@ -144,20 +144,12 @@ void MainWindow::on_startbutton_clicked()
 
 void MainWindow::advanceGame()
 {
-    try{
-        qDebug() << "advanceGame()";
-        logic.get()->increaseTime();
-        dude_->move(dude_->giveLocation());
-        updateGraphics();
-        map->update();
-        action_taken_ = false;
-    }
-    catch(InitError const &error){
-        qDebug() << error.what() << error.giveMessage();
-    }
-    catch(GameError const &error){
-        qDebug() << error.what() << error.giveMessage();
-    }
+    qDebug() << "advanceGame()";
+    logic.get()->increaseTime();
+    dude_->move(dude_->giveLocation());
+    updateGraphics();
+    map->update();
+    action_taken_ = false;
 }
 
 bool MainWindow::inMap(GraphicItem * item)
