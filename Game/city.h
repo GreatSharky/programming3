@@ -54,31 +54,36 @@ public:
 
     /**
      * @brief getBackground
-     * @throw maps = nullptr
-     * @return
+     * @pre setBackground is called
+     * @return small background
+     * @post Exception guarantee: basic
      */
     QImage *getBackground();
 
     /**
      * @brief getStops
      * @return map of city stops
+     * @post Exception guarantee: strong
      */
     std::map<std::shared_ptr<IStop>, GraphicItem *> getStops();
 
     /**
      * @brief getVehicles
      * @return map of city vehicles
+     * @post Exception guarantee: strong
      */
     std::map<std::shared_ptr<Interface::IActor>, GraphicItem *> getVehicles();
 
     /**
      * @brief getRemoved
      * @return removed graphic items
+     * @post Exception guarantee: strong
      */
     std::vector<GraphicItem *> getRemoved();
 
     /**
      * @brief clearRemoved clears removed items
+     * @post Exception guarantee: strong
      */
     void clearRemoved();
 

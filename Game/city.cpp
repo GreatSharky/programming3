@@ -29,12 +29,13 @@ void Aaro::City::setClock(QTime clock)
 
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
 {
+    // Test that location is set right
     if(stop.get()->getLocation().giveNorthernCoord() != 6700000 && stop.get()->getLocation().giveEasternCoord() != 3500000){
         GraphicItem* stpgraphic = new GraphicItem(stop.get()->getLocation().giveX(), 500-stop.get()->getLocation().giveY(), STOP);
         stops_.insert({stop, stpgraphic});
     }
     else{
-        throw InitError("City::addStop");
+        throw InitError("addStop, stop location not valid");
     }
 }
 
@@ -46,7 +47,7 @@ void Aaro::City::startGame()
 void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
 {
     if(!findActor(newactor)){
-        if(std::dynamic_pointer_cast<CourseSide::Nysse>(newactor)){
+        if(dynamic_cast<CourseSide::Nysse*>(newactor.get()) != nullptr){
             GraphicItem* pic = new GraphicItem(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(),BUS);
             vehicles_.insert({newactor, pic});
         }
