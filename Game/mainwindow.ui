@@ -15,12 +15,15 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="gameView">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>500</width>
-      <height>400</height>
+      <width>511</width>
+      <height>511</height>
      </rect>
     </property>
    </widget>
