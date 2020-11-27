@@ -55,10 +55,10 @@ void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
             removedItems_.push_back(it->second);
             if(actor.get()->isRemoved()){
                 actor.get()->remove();
-            }
-            if(it->second != nullptr){
+            }/*
+            if(it->second == nullptr){
                 delete it->second;
-            }
+            }*/
             vehicles_.erase(it);
         }
     }
