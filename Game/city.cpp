@@ -24,9 +24,7 @@ void Aaro::City::setBackground(QImage &basicbackground, QImage &bigbackground)
 
 void Aaro::City::setClock(QTime clock)
 {
-    if(clock.isValid()){
-        clock_->setHMS(clock.hour(),clock.minute(),clock.second());
-    }
+    clock_->setHMS(clock.hour(),clock.minute(),clock.second());
 }
 
 void Aaro::City::addStop(std::shared_ptr<IStop> stop)
