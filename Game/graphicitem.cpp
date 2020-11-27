@@ -52,7 +52,7 @@ void Aaro::GraphicItem::selectIcon()
     }
     else if(type_ == BUS){
         QPixmap bigGraphic(":/bus-icon.png");
-        picture = bigGraphic.scaled(40,40);
+        picture = bigGraphic.scaled(50,50);
     }
     else {
         qDebug() << "No icon for:" << type_;
