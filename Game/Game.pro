@@ -59,6 +59,8 @@ FORMS += \
 
 RESOURCES += \
     bus-stop-icon.png \
-    bus-icon.png
+    bus-icon.png \
+    pacmanghost2-icon.png \
+    plane-icon.png
 
 DISTFILES +=

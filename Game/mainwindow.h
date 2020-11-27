@@ -67,7 +67,7 @@ private:
     QTimer *timer;
     QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
-    character *dude_;
+    std::shared_ptr<character> dude_;
     QPushButton *startbutton_;
     bool action_taken_;
 

@@ -4,6 +4,7 @@ Aaro::character::character(int x, int y) :
     removed_(false)
 {
     location_.setXY(x, y);
+    graphic = new GraphicItem(x,y, CHARACTER);
 }
 
 Aaro::character::~character()
@@ -19,6 +20,7 @@ Location Aaro::character::giveLocation() const
 void Aaro::character::move(Location loc)
 {
     location_ = loc;
+    graphic->updateGraphic(location_.giveX(), 500- location_.giveY());
 }
 
 void Aaro::character::remove()
@@ -51,4 +53,9 @@ void Aaro::character::movement_commands(QString command)
         Location newloc = Location(location_.giveX(), location_.giveY() + 10);
         move(newloc);
     }
+}
+
+Aaro::GraphicItem *Aaro::character::getGraphic()
+{
+    return graphic;
 }

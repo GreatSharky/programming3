@@ -6,7 +6,7 @@
 #include <QPixmap>
 
 
-enum GraphicsItem {NOTHING, STOP, BUS, PLANE ,OTHER};
+enum GraphicsItem {NOTHING, STOP, BUS, PLANE , CHARACTER,OTHER};
 
 namespace Aaro {
 

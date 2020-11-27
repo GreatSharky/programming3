@@ -40,9 +40,9 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->setTime(12,0);
     addGraphics();
 
-
-    dude_ = new character(250, 250);
-    //addActor(dude_->giveLocation().giveX(), dude_->giveLocation().giveY(), NOTHING);
+    character cha = character(250,250);
+    dude_ = std::make_shared<character>(cha);
+    map->addItem(dude_.get()->getGraphic());
     // Täl voi ny piirtää grafiikat. tuli musta pallo näytöl
     show();
 

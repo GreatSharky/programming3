@@ -53,6 +53,16 @@ void Aaro::GraphicItem::selectIcon()
     else if(type_ == BUS){
         QPixmap bigGraphic(":/bus-icon.png");
         picture = bigGraphic.scaled(50,50);
+        setOffset(QPointF(-30,-30));
+    }
+    else if(type_ == CHARACTER){
+        QPixmap bigGraphic(":/pacmanghost2-icon.png");
+        picture = bigGraphic.scaled(30, 30);
+        setOffset(QPointF(-15,-15));
+    }
+    else if(type_ == PLANE){
+        QPixmap bigGraphic(":/plane-icon.png");
+        picture = bigGraphic.scaled(40,40);
     }
     else {
         qDebug() << "No icon for:" << type_;
