@@ -8,7 +8,6 @@
 #include "errors/initerror.hh"
 #include "errors/gameerror.hh"
 
-
 #include <QString>
 #include <QTime>
 #include <QDebug>
