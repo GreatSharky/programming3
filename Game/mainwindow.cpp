@@ -145,6 +145,7 @@ void MainWindow::takePlayerName(QString name)
 
 void MainWindow::cancel()
 {
+    // Logic sets up city for proper deletion
     logic.get()->finalizeGameStart();
     close();
 }
