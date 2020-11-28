@@ -47,10 +47,10 @@
      <item>
       <layout class="QHBoxLayout" name="clockLayout">
        <item>
-        <widget class="QLCDNumber" name="hourLCD"/>
+        <widget class="QLCDNumber" name="minuteLCD"/>
        </item>
        <item>
-        <widget class="QLCDNumber" name="minuteLCD"/>
+        <widget class="QLCDNumber" name="secondLCD"/>
        </item>
       </layout>
      </item>

@@ -137,8 +137,12 @@ void MainWindow::point_info()
 
 void MainWindow::createClock()
 {
-    ui->hourLCD->display(minute_);
+    ui->secondLCD->display(minute_);
     ui->minuteLCD->display(second_);
+    QPalette p;
+    p.setBrush(QPalette::Background, QBrush(Qt::red));
+    ui->secondLCD->setPalette(p);
+
     irlTimer = new QTimer;
     irlTimer->setInterval(1000);
     connect(irlTimer, &QTimer::timeout, this, &MainWindow::addTime);
@@ -159,7 +163,7 @@ void MainWindow::addTime()
         timer->stop();
         irlTimer->stop();
     }
-    ui->hourLCD->display(minute_);
+    ui->secondLCD->display(minute_);
     ui->minuteLCD->display(second_);
 }
 
