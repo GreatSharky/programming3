@@ -52,11 +52,13 @@ public:
     void addGraphics();
     void updateGraphics();
     void point_info();
+    void createClock();
 
 signals:
     void gameStarted();
 
 private slots:
+    void addTime();
     void takePlayerName(QString name);
     void cancel();
     void on_startbutton_clicked();
@@ -73,6 +75,9 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *map;
     QTimer *timer;
+
+    // Same speed as real timer
+    QTimer *irlTimer;
     QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
     GraphicItem *dude_;
@@ -85,6 +90,9 @@ private:
     std::shared_ptr<City> tre;
 
     QString playername_;
+
+    int minute_ = 0;
+    int second_ = 0;
 
     int width_ = 500; //pxls
     int height_ = 500;

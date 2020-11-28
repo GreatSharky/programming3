@@ -11,7 +11,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     qDebug() << "Window built";
-    this->setFixedSize(width_ + 400, height_ + 20);
+    this->setFixedSize(width_ + 300, height_ + 20);
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -25,6 +25,8 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     startbutton_ = new QPushButton("start", this);
     startbutton_->setGeometry(QRect(QPoint(530, 420), QSize(256, 80)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
+
+    createClock();
 
     statistics_ = new statistics();
 
@@ -58,8 +60,10 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    logic.get()->finalizeGameStart();
     delete ui;
     delete timer;
+    delete irlTimer;
 }
 
 void MainWindow::setTick(int t)
@@ -132,6 +136,48 @@ void MainWindow::point_info()
                              + point_amount);
 }
 
+void MainWindow::createClock()
+{
+    ui->secondLCD->display(second_);
+    ui->minuteLCD->display(minute_);
+    ui->secondLCD->setAutoFillBackground(true);
+    QPalette p;
+    p.setColor(QPalette::Background, QColor(120,0,200));
+    ui->secondLCD->setPalette(p);
+
+    ui->minuteLCD->setAutoFillBackground(true);
+    p.setColor(QPalette::Background, QColor(120,200,0));
+    ui->minuteLCD->setPalette(p);
+
+    ui->minuteLCD->setSegmentStyle(QLCDNumber::Flat);
+    ui->secondLCD->setSegmentStyle(QLCDNumber::Flat);
+
+    irlTimer = new QTimer;
+    irlTimer->setInterval(1000);
+    connect(irlTimer, &QTimer::timeout, this, &MainWindow::addTime);
+}
+
+void MainWindow::addTime()
+{
+    if(!tre.get()->isGameOver()){
+        ++second_;
+        if(second_ == 60){
+            second_ = 0;
+            ++minute_;
+        }
+    }
+    if(minute_ == 2){
+        tre.get()->endGame();
+        // Joku hieno display saatana
+        timer->stop();
+        irlTimer->stop();
+        QString points = QString::number(statistics_->getPoints());
+        ui->textBrowser->setText(" Game over!\n You got " + points + " total points!");
+    }
+    ui->secondLCD->display(second_);
+    ui->minuteLCD->display(minute_);
+}
+
 void MainWindow::takePlayerName(QString name)
 {
     if(name.isEmpty()){
@@ -156,6 +202,7 @@ void MainWindow::on_startbutton_clicked()
     logic.get()->finalizeGameStart();
     addGraphics();
     timer->start();
+    irlTimer->start();
     emit gameStarted();
     delete startbutton_;
 }

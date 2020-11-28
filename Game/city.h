@@ -86,6 +86,8 @@ public:
      */
     void clearRemoved();
 
+    void endGame();
+
     // test from olden days
     int test();
 
