@@ -164,6 +164,18 @@ void MainWindow::advanceGame()
 {
     qDebug() << "advanceGame()";
     logic.get()->increaseTime();
+    std::vector<std::shared_ptr<IActor> > near = tre.get()->getNearbyActors(dude_->getcharacter().get()->giveLocation());
+
+    for(auto it = near.begin(); it != near.end(); ++it){
+        if(dynamic_cast<Nysse*>(it->get()) != nullptr){
+            tre->removeActor(*it);
+            statistics_->add_points("bus");
+        /*}else if(dynamic_cast<????*>(it->get()) != nullptr){
+            tre->removeActor(*it);
+            statistics_->add_points("plane");*/
+        }
+    }
+
     dude_->updateGraphic(0,0);
     updateGraphics();
     map->update();
