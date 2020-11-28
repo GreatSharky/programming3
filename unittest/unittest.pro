@@ -12,10 +12,12 @@ SOURCES +=  tst_unittest.cpp \
 
 HEADERS += \
     ../Game/statistics.hh \
-    ../CourseLib/interfaces/istatistics.hh \
+    ../Course/CourseLib/interfaces/istatistics.hh \
+
+DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 INCLUDEPATH += \
     ../Game/ \
-    ../CourseLib/interfaces/
+    ../Course/CourseLib/interfaces/ \
 DEPENDPATH += \
-    ../CourseLib/interfaces/
+    ../Course/CourseLib/interfaces/ \
