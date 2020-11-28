@@ -10,14 +10,17 @@ TEMPLATE = app
 SOURCES +=  tst_unittest.cpp \
     ../Game/statistics.cpp
 
+DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
 HEADERS += \
     ../Game/statistics.hh \
-    ../Course/CourseLib/interfaces/istatistics.hh \
-
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
+    ../
 
 INCLUDEPATH += \
     ../Game/ \
-    ../Course/CourseLib/interfaces/ \
+    ../Course/CourseLib \
+    ../
+
 DEPENDPATH += \
-    ../Course/CourseLib/interfaces/ \
+    ../Course/CourseLib \
+    ../

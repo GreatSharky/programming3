@@ -4,7 +4,6 @@
 #include <QDebug>
 #include <QString>
 #include "interfaces/istatistics.hh"
-#include "errors/gameerror.hh"
 
 using namespace Interface;
 

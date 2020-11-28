@@ -43,9 +43,6 @@ void Aaro::statistics::add_points(QString vehicle)
     }else if(vehicle == "plane"){
         points_ += 25;
         ++planes_;
-
-    }else{
-        throw GameError("Not a valid vehicle.");
     }
 }
 

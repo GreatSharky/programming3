@@ -21,7 +21,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     setTick(tick_);
     connect(timer, &QTimer::timeout, this, &MainWindow::advanceGame);
 
-    //startti pitäs linkkaa oikein kellon kaa
     startbutton_ = new QPushButton("start", this);
     startbutton_->setGeometry(QRect(QPoint(530, 420), QSize(256, 80)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
@@ -166,13 +165,13 @@ void MainWindow::addTime()
             ++minute_;
         }
     }
-    if(minute_ == 2){
+    if(minute_ == 1){
         tre.get()->endGame();
         // Joku hieno display saatana
         timer->stop();
         irlTimer->stop();
         QString points = QString::number(statistics_->getPoints());
-        ui->textBrowser->setText(" Game over!\n You got " + points + " total points!");
+        ui->textBrowser->setText(" Game over!\n You got " + points + "\n total points!");
     }
     ui->secondLCD->display(second_);
     ui->minuteLCD->display(minute_);
