@@ -166,6 +166,11 @@ void Aaro::City::clearRemoved()
     removedItems_.clear();
 }
 
+void Aaro::City::endGame()
+{
+    gameLive_ = false;
+}
+
 int Aaro::City::test()
 {
     return 1;

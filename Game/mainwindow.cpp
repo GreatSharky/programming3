@@ -26,6 +26,8 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(150, 70)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
 
+    createClock();
+
     statistics_ = new statistics();
 
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
@@ -133,6 +135,34 @@ void MainWindow::point_info()
                              + point_amount);
 }
 
+void MainWindow::createClock()
+{
+    ui->hourLCD->display(minute_);
+    ui->minuteLCD->display(second_);
+    irlTimer = new QTimer;
+    irlTimer->setInterval(1000);
+    connect(irlTimer, &QTimer::timeout, this, &MainWindow::addTime);
+}
+
+void MainWindow::addTime()
+{
+    if(!tre.get()->isGameOver()){
+        ++second_;
+        if(second_ == 60){
+            second_ = 0;
+            ++minute_;
+        }
+    }
+    if(second_ == 25){
+        tre.get()->endGame();
+        // Joku hieno display saatana
+        timer->stop();
+        irlTimer->stop();
+    }
+    ui->hourLCD->display(minute_);
+    ui->minuteLCD->display(second_);
+}
+
 void MainWindow::takePlayerName(QString name)
 {
     if(name.isEmpty()){
@@ -155,6 +185,7 @@ void MainWindow::on_startbutton_clicked()
     logic.get()->finalizeGameStart();
     addGraphics();
     timer->start();
+    irlTimer->start();
     emit gameStarted();
     delete startbutton_;
 }
