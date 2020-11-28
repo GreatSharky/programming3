@@ -11,7 +11,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     qDebug() << "Window built";
-    this->setFixedSize(width_ + 400, height_ + 200);
+    this->setFixedSize(width_ + 400, height_ + 20);
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -23,7 +23,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
     //startti pitäs linkkaa oikein kellon kaa
     startbutton_ = new QPushButton("start", this);
-    startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(150, 70)));
+    startbutton_->setGeometry(QRect(QPoint(530, 420), QSize(256, 80)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
 
     statistics_ = new statistics();
@@ -54,7 +54,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     connect(startDialog, &Dialog::rejected, this, &MainWindow::cancel);
     connect(startDialog, &Dialog::getname, this, &MainWindow::takePlayerName);
     startDialog->show();
-
 }
 
 MainWindow::~MainWindow()
@@ -137,9 +136,11 @@ void MainWindow::takePlayerName(QString name)
 {
     if(name.isEmpty()){
         playername_ = "Clyde";
+        ui->clockLabel->setText(playername_);
     }
     else{
         playername_ = name;
+        ui->clockLabel->setText(playername_);
     }
 }
 
