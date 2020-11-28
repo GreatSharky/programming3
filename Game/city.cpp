@@ -130,7 +130,7 @@ std::vector<std::shared_ptr<IActor> > Aaro::City::getNearbyActors(Location loc) 
 
 bool Aaro::City::isGameOver() const
 {
-    return false;
+    return !gameLive_;
 }
 
 QImage* Aaro::City::getBackground()

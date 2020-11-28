@@ -152,7 +152,10 @@ void MainWindow::advanceGame()
 
 void MainWindow::move_left()
 {
-    if(action_taken_ == false){
+    if(tre.get()->isGameOver()){
+        return;
+    }
+    else if(!false){
         action_taken_ = true;
         dude_->getcharacter().get()->movement_commands("left");
     }
@@ -160,7 +163,10 @@ void MainWindow::move_left()
 
 void MainWindow::move_right()
 {
-    if(action_taken_ == false){
+    if(tre.get()->isGameOver()){
+        return;
+    }
+    else if(!false){
         action_taken_ = true;
         dude_->getcharacter().get()->movement_commands("right");
     }
@@ -168,7 +174,10 @@ void MainWindow::move_right()
 
 void MainWindow::move_up()
 {
-    if(action_taken_ == false){
+    if(tre.get()->isGameOver()){
+        return;
+    }
+    else if(!false){
         action_taken_ = true;
         dude_->getcharacter().get()->movement_commands("up");
     }
@@ -176,7 +185,10 @@ void MainWindow::move_up()
 
 void MainWindow::move_down()
 {
-    if(action_taken_ == false){
+    if(tre.get()->isGameOver()){
+        return;
+    }
+    else if(!false){
         action_taken_ = true;
         dude_->getcharacter().get()->movement_commands("down");
     }
