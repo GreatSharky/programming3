@@ -40,10 +40,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->takeCity(std::dynamic_pointer_cast<Interface::ICity>(tre));
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
-    addGraphics();
-    dude_ = new GraphicItem(250, 250, CHARACTER);
-    //dude_ = std::make_shared<GraphicItem*>(cha);
-    addActor(dude_);
 
     QShortcut* act = new QShortcut( QKeySequence("left"), this );
     connect(act, SIGNAL(activated()), this, SLOT(move_left()));
@@ -60,7 +56,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    // Remove graghics
     delete ui;
     delete timer;
 }
@@ -97,6 +92,8 @@ void MainWindow::addGraphics()
             addActor(it->second);
         }
     }
+    dude_ = new GraphicItem(250, 250, CHARACTER);
+    addActor(dude_);
     map->update();
 }
 
@@ -146,7 +143,7 @@ void MainWindow::advanceGame()
 {
     qDebug() << "advanceGame()";
     logic.get()->increaseTime();
-    dude_->getcharacter().move(dude_->getcharacter().giveLocation());
+    dude_->updateGraphic(0,0);
     updateGraphics();
     map->update();
     point_info();
@@ -157,7 +154,7 @@ void MainWindow::move_left()
 {
     if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().movement_commands("left");
+        dude_->getcharacter().get()->movement_commands("left");
     }
 }
 
@@ -165,7 +162,7 @@ void MainWindow::move_right()
 {
     if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().movement_commands("right");
+        dude_->getcharacter().get()->movement_commands("right");
     }
 }
 
@@ -173,7 +170,7 @@ void MainWindow::move_up()
 {
     if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().movement_commands("up");
+        dude_->getcharacter().get()->movement_commands("up");
     }
 }
 
@@ -181,7 +178,7 @@ void MainWindow::move_down()
 {
     if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().movement_commands("down");
+        dude_->getcharacter().get()->movement_commands("down");
     }
 }
 

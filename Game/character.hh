@@ -42,6 +42,7 @@ protected:
 
 private:
     Location location_;
+
 };
 }
 #endif // CHARACTER_HH

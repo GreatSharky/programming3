@@ -19,16 +19,18 @@ public:
     ~GraphicItem();
     void updateGraphic(int newX, int newY);
     GraphicsItem getType();
-    character getcharacter();
+    std::shared_ptr<character> getcharacter();
 
 private:
     void selectIcon();
+    void makeCharacter();
+
     int x_;
     int y_;
     GraphicsItem type_;
     int dir_;
     QPixmap picture;
-    character *character_;
+    std::shared_ptr<character> character_;
 
 };
 

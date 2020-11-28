@@ -19,6 +19,7 @@ Location Aaro::character::giveLocation() const
 void Aaro::character::move(Location loc)
 {
     location_ = loc;
+
 }
 
 void Aaro::character::remove()
@@ -36,22 +37,18 @@ void Aaro::character::movement_commands(QString command)
     if(command == "left"){
         qDebug() << "vasen";
         // Paha sanoo mitää täst
-        Location newloc = Location(location_.giveX() - 10, location_.giveY());
-        move(newloc);
+        location_.setXY(location_.giveX() -10, location_.giveY());
 
     }else if(command == "right"){
         qDebug() << "oikee";
-        Location newloc = Location(location_.giveX() + 10, location_.giveY());
-        move(newloc);
+        location_.setXY(location_.giveX() +10 , location_.giveY());
 
     }else if(command == "up"){
         qDebug() << "ylös";
-        Location newloc = Location(location_.giveX(), location_.giveY() - 10);
-        move(newloc);
+        location_.setXY(location_.giveX(), location_.giveY() + 10);
 
     }else if(command == "down"){
         qDebug() << "alas";
-        Location newloc = Location(location_.giveX(), location_.giveY() + 10);
-        move(newloc);
+        location_.setXY(location_.giveX(), location_.giveY() - 10);
     }
 }

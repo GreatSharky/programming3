@@ -19,24 +19,32 @@ void Aaro::GraphicItem::updateGraphic(int newX, int newY)
     if(type_ == STOP){
         return;
     }
-    if(dir_ < 0){
-        if(x_ - newX > 0){
-            dir_ = 1;
-            picture = picture.transformed(QTransform().scale(-1,1));
-            setPixmap(picture);
+    else if(type_ == BUS){
+        if(dir_ < 0){
+            if(x_ - newX > 0){
+                dir_ = 1;
+                picture = picture.transformed(QTransform().scale(-1,1));
+                setPixmap(picture);
+            }
         }
+        else if( dir_ >= 0){
+            if(x_ - newX < 0){
+                dir_ = -1;
+                picture = picture.transformed(QTransform().scale(-1,1));
+                setPixmap(picture);
+            }
+        }
+
     }
-    else if( dir_ >= 0){
-        if(x_ - newX < 0){
-            dir_ = -1;
-            picture = picture.transformed(QTransform().scale(-1,1));
-            setPixmap(picture);
-        }
+    else if(type_ == CHARACTER){
+        newX = character_.get()->giveLocation().giveX();
+        newY = 500 - character_.get()->giveLocation().giveY();
     }
     x_ = newX;
     y_ = newY;
     setX(x_);
     setY(y_);
+
 }
 
 GraphicsItem Aaro::GraphicItem::getType()
@@ -44,9 +52,14 @@ GraphicsItem Aaro::GraphicItem::getType()
     return type_;
 }
 
-Aaro::character Aaro::GraphicItem::getcharacter()
+std::shared_ptr<Aaro::character> Aaro::GraphicItem::getcharacter()
 {
-    return *character_;
+    if(type_ == CHARACTER){
+        return character_;
+    }
+    else{
+        return nullptr;
+    }
 }
 
 void Aaro::GraphicItem::selectIcon()
@@ -62,10 +75,11 @@ void Aaro::GraphicItem::selectIcon()
         setOffset(QPointF(-30,-30));
     }
     else if(type_ == CHARACTER){
+        makeCharacter();
         QPixmap bigGraphic(":/pacmanghost2-icon.png");
         picture = bigGraphic.scaled(30, 30);
         setOffset(QPointF(-15,-15));
-        character_ = new character(x_, y_);
+
     }
     else if(type_ == PLANE){
         QPixmap bigGraphic(":/plane-icon.png");
@@ -75,4 +89,9 @@ void Aaro::GraphicItem::selectIcon()
     else {
         qDebug() << "No icon for:" << type_;
     }
+}
+
+void Aaro::GraphicItem::makeCharacter()
+{
+    character_ = std::make_shared<character>(x_,y_);
 }
