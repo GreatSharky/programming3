@@ -80,7 +80,7 @@ private:
     QTimer *irlTimer;
     QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
-    GraphicItem *dude_;
+    GraphicItem *player_;
     QPushButton *startbutton_;
     bool action_taken_;
     statistics *statistics_;

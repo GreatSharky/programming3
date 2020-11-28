@@ -97,8 +97,8 @@ void MainWindow::addGraphics()
             addActor(it->second);
         }
     }
-    dude_ = new GraphicItem(250, 250, CHARACTER);
-    addActor(dude_);
+    player_ = new GraphicItem(250, 250, CHARACTER);
+    addActor(player_);
     map->update();
 }
 
@@ -210,7 +210,7 @@ void MainWindow::advanceGame()
 {
     qDebug() << "advanceGame()";
     logic.get()->increaseTime();
-    std::vector<std::shared_ptr<IActor> > near = tre.get()->getNearbyActors(dude_->getcharacter().get()->giveLocation());
+    std::vector<std::shared_ptr<IActor> > near = tre.get()->getNearbyActors(player_->getcharacter().get()->giveLocation());
 
     for(auto it = near.begin(); it != near.end(); ++it){
         if(dynamic_cast<Nysse*>(it->get()) != nullptr){
@@ -222,7 +222,7 @@ void MainWindow::advanceGame()
         }
     }
 
-    dude_->updateGraphic(0,0);
+    player_->updateGraphic(0,0);
     updateGraphics();
     map->update();
     point_info();
@@ -236,7 +236,7 @@ void MainWindow::move_left()
     }
     else if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().get()->movement_commands("left");
+        player_->getcharacter().get()->movement_commands("left");
     }
 }
 
@@ -247,7 +247,7 @@ void MainWindow::move_right()
     }
     else if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().get()->movement_commands("right");
+        player_->getcharacter().get()->movement_commands("right");
     }
 }
 
@@ -258,7 +258,7 @@ void MainWindow::move_up()
     }
     else if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().get()->movement_commands("up");
+        player_->getcharacter().get()->movement_commands("up");
     }
 }
 
@@ -269,7 +269,7 @@ void MainWindow::move_down()
     }
     else if(action_taken_ == false){
         action_taken_ = true;
-        dude_->getcharacter().get()->movement_commands("down");
+        player_->getcharacter().get()->movement_commands("down");
     }
 }
 
