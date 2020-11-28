@@ -3,9 +3,9 @@
 
 #include "character.hh"
 #include "statistics.hh"
-#include "dialog.h"
 #include "graphicitem.h"
 #include "city.h"
+#include "dialog.h"
 #include "graphics/simpleactoritem.hh"
 #include "core/logic.hh"
 
@@ -57,6 +57,8 @@ signals:
     void gameStarted();
 
 private slots:
+    void takePlayerName(QString name);
+    void cancel();
     void on_startbutton_clicked();
     void advanceGame();
     void move_left();
@@ -81,6 +83,8 @@ private:
     std::shared_ptr<CourseSide::Logic> logic;
 
     std::shared_ptr<City> tre;
+
+    QString playername_;
 
     int width_ = 500; //pxls
     int height_ = 500;

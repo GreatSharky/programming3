@@ -9,8 +9,6 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     action_taken_(false)
 {
     ui->setupUi(this);
-    Dialog* startDialog = new Dialog(this);
-    startDialog->exec();
 
     qDebug() << "Window built";
     this->setFixedSize(width_ + 400, height_ + 200);
@@ -50,7 +48,12 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     QShortcut* act4 = new QShortcut( QKeySequence("down"), this );
     connect(act4, SIGNAL(activated()), this, SLOT(move_down()));
     point_info();
-    show();
+
+    Dialog* startDialog = new Dialog(this);
+    connect(startDialog, &Dialog::accepted, this, &MainWindow::show);
+    connect(startDialog, &Dialog::rejected, this, &MainWindow::cancel);
+    connect(startDialog, &Dialog::getname, this, &MainWindow::takePlayerName);
+    startDialog->show();
 
 }
 
@@ -130,9 +133,25 @@ void MainWindow::point_info()
                              + point_amount);
 }
 
+void MainWindow::takePlayerName(QString name)
+{
+    if(name.isEmpty()){
+        playername_ = "Clyde";
+    }
+    else{
+        playername_ = name;
+    }
+}
+
+void MainWindow::cancel()
+{
+    logic.get()->finalizeGameStart();
+    close();
+}
+
 void MainWindow::on_startbutton_clicked()
 {
-    logic->finalizeGameStart();
+    logic.get()->finalizeGameStart();
     addGraphics();
     timer->start();
     emit gameStarted();
