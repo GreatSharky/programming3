@@ -51,6 +51,7 @@ public:
     void setPicture(QImage &img);
     void addGraphics();
     void updateGraphics();
+    void point_info();
 
 signals:
     void gameStarted();
@@ -75,6 +76,7 @@ private:
     GraphicItem *dude_;
     QPushButton *startbutton_;
     bool action_taken_;
+    statistics *statistics_;
 
     std::shared_ptr<CourseSide::Logic> logic;
 

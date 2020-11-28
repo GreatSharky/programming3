@@ -25,8 +25,10 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
     //startti pitäs linkkaa oikein kellon kaa
     startbutton_ = new QPushButton("start", this);
-    startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(50, 50)));
+    startbutton_->setGeometry(QRect(QPoint(100, 600), QSize(150, 70)));
     connect(startbutton_, &QPushButton::clicked, this, &MainWindow::on_startbutton_clicked);
+
+    statistics_ = new statistics();
 
     QString picfile = ":/offlinedata/offlinedata/kartta_pieni_500x500.png";
     QImage pic(picfile);
@@ -51,7 +53,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     connect(act3, SIGNAL(activated()), this, SLOT(move_up()));
     QShortcut* act4 = new QShortcut( QKeySequence("down"), this );
     connect(act4, SIGNAL(activated()), this, SLOT(move_down()));
-
+    point_info();
     show();
 
 }
@@ -120,6 +122,17 @@ void MainWindow::updateGraphics()
 
 }
 
+void MainWindow::point_info()
+{
+    QString plane_amount = QString::number(statistics_->getPlanes());
+    QString bus_amount = QString::number(statistics_->getBuses());
+    QString point_amount = QString::number(statistics_->getPoints());
+
+    ui->textBrowser->setText(" Current score: \n Planes caught:     " + plane_amount +
+                             "\n Buses caught:      " + bus_amount + "\n Total points:        "
+                             + point_amount);
+}
+
 void MainWindow::on_startbutton_clicked()
 {
     logic->finalizeGameStart();
@@ -136,6 +149,7 @@ void MainWindow::advanceGame()
     dude_->getcharacter().move(dude_->getcharacter().giveLocation());
     updateGraphics();
     map->update();
+    point_info();
     action_taken_ = false;
 }
 
