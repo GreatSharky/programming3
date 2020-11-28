@@ -11,7 +11,7 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     qDebug() << "Window built";
-    this->setFixedSize(width_ + 400, height_ + 20);
+    this->setFixedSize(width_ + 300, height_ + 20);
 
     map = new QGraphicsScene(this);
     ui->gameView->setScene(map);
@@ -60,8 +60,10 @@ Aaro::MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    logic.get()->finalizeGameStart();
     delete ui;
     delete timer;
+    delete irlTimer;
 }
 
 void MainWindow::setTick(int t)
@@ -138,9 +140,17 @@ void MainWindow::createClock()
 {
     ui->secondLCD->display(second_);
     ui->minuteLCD->display(minute_);
+    ui->secondLCD->setAutoFillBackground(true);
     QPalette p;
-    p.setBrush(QPalette::Background, QBrush(Qt::red));
+    p.setColor(QPalette::Background, QColor(120,0,200));
     ui->secondLCD->setPalette(p);
+
+    ui->minuteLCD->setAutoFillBackground(true);
+    p.setColor(QPalette::Background, QColor(120,200,0));
+    ui->minuteLCD->setPalette(p);
+
+    ui->minuteLCD->setSegmentStyle(QLCDNumber::Flat);
+    ui->secondLCD->setSegmentStyle(QLCDNumber::Flat);
 
     irlTimer = new QTimer;
     irlTimer->setInterval(1000);
