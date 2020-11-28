@@ -137,8 +137,8 @@ void MainWindow::point_info()
 
 void MainWindow::createClock()
 {
-    ui->secondLCD->display(minute_);
-    ui->minuteLCD->display(second_);
+    ui->secondLCD->display(second_);
+    ui->minuteLCD->display(minute_);
     QPalette p;
     p.setBrush(QPalette::Background, QBrush(Qt::red));
     ui->secondLCD->setPalette(p);
@@ -157,14 +157,16 @@ void MainWindow::addTime()
             ++minute_;
         }
     }
-    if(second_ == 25){
+    if(minute_ == 2){
         tre.get()->endGame();
         // Joku hieno display saatana
         timer->stop();
         irlTimer->stop();
+        QString points = QString::number(statistics_->getPoints());
+        ui->textBrowser->setText(" Game over!\n You got " + points + " total points!");
     }
-    ui->secondLCD->display(minute_);
-    ui->minuteLCD->display(second_);
+    ui->secondLCD->display(second_);
+    ui->minuteLCD->display(minute_);
 }
 
 void MainWindow::takePlayerName(QString name)
