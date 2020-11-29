@@ -67,7 +67,7 @@ void StudentSide::City::removeActor(std::shared_ptr<IActor> actor)
         for(auto it =  vehicles_.begin(); it != vehicles_.end(); ++it){
             if(actor == it->first){
                 removedItems_.push_back(it->second);
-                if(actor.get()->isRemoved()){
+                if(!actor.get()->isRemoved()){
                     actor.get()->remove();
                 }
                 vehicles_.erase(it);

@@ -84,8 +84,8 @@ void StudentSide::GraphicItem::selectIcon()
     }
     else if(type_ == PLANE){
         QPixmap bigGraphic(":/plane-icon.png");
-        picture = bigGraphic.scaled(40,40);
-        setOffset(-20,-20);
+        picture = bigGraphic.scaled(50,50);
+        setOffset(-25,-25);
     }
     else {
         qDebug() << "No icon for:" << type_;
