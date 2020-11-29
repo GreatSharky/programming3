@@ -22,7 +22,7 @@ unittest::unittest()
 
 void unittest::test_statistics()
 {
-    Aaro::statistics stat;
+    StudentSide::statistics stat;
     QCOMPARE(stat.getPoints(), stat.getBuses() * 10 + stat.getPlanes() * 25);
 }
 
