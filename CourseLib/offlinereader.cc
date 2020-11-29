@@ -55,7 +55,7 @@ void OfflineReader::readBusFile(const QString &busfile)
 
         std::shared_ptr<BusData> bus = std::make_shared<BusData>();
         bus->routeId = o.value("busId").toString().toInt();
-        bus->routeName = o.value("name").toString().toStdString();
+        bus->routeName = o.value("busLineName").toString().toStdString();
         bus->routeNumber = o.value("busNro").toString().toInt();
 
         // Read final stop departure times

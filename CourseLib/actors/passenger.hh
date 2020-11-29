@@ -32,6 +32,11 @@ public:
     // Moves the passenger from stop into the bus.
     void enterNysse(std::weak_ptr< Nysse > nysse );
 
+    // WantToEnterNysse but make it accept all vehicles
+    virtual bool wantToEnterVehicle(std::weak_ptr< Interface::IVehicle > vehicle ) const;
+    // enterNysse but make it accept all vehicles
+    void enterVehicle(std::weak_ptr< Interface::IVehicle > vehicle);
+
     // Tells passenger that the bus has arrived to the stop and asks if passenger wants to get out.
     virtual bool wantToEnterStop(std::weak_ptr<Interface::IStop> stop) const;
 
@@ -46,7 +51,7 @@ protected:
 private:
 
     // Current bus
-    std::weak_ptr< Nysse > nyssep_;
+    std::weak_ptr< Interface::IVehicle > nyssep_;
     // Current stop
     std::weak_ptr< Interface::IStop > stopp_;
 

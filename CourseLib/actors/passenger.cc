@@ -71,6 +71,21 @@ bool Passenger::wantToEnterNysse(std::weak_ptr< Nysse > /*bus*/) const
     return true;
 }
 
+bool Passenger::wantToEnterVehicle(std::weak_ptr<Interface::IVehicle> /*vehicle*/) const
+{
+    if (rand() % 2 == 0) {
+        return false;
+    }
+
+    return true;
+}
+
+void Passenger::enterVehicle(std::weak_ptr<Interface::IVehicle> vehicle)
+{
+    nyssep_ = vehicle;
+    stopp_.reset();
+}
+
 void Passenger::enterNysse(std::weak_ptr< Nysse > bus)
 {
     // Set nyssep_ to point to given Nysse and forget stopp_
