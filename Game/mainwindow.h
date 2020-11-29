@@ -96,7 +96,7 @@ private:
 
     int width_ = 500; //pxls
     int height_ = 500;
-    int tick_ = 200; //ms
+    int tick_ = 33; //ms
 };
 
 }
