@@ -43,33 +43,88 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
-
+    /**
+     * @brief Sets the game tick
+     * @param The amount for a tick
+     */
     void setTick(int t);
-
+    /**
+     * @brief Adds the actors to the game
+     * @param The actor thats added to the game
+     */
     void addActor(GraphicItem* actorPic);
+    /**
+     * @brief Updates the coordinates
+     * @param The new x-coordinate
+     * @param The new y-coordinate
+     */
     void updateCoords(int nX, int nY);
-    void setPicture(QImage &img);
+    /**
+     * @brief Adds graphics to the actors
+     */
     void addGraphics();
+    /**
+     * @brief Updates the graphics
+     */
     void updateGraphics();
+    /**
+     * @brief Adds the necessary info to the window
+     */
     void point_info();
+    /**
+     * @brief Creates the game clock
+     */
     void createClock();
 
 signals:
     void gameStarted();
 
 private slots:
+    /**
+     * @brief Adds time to the clock
+     */
     void addTime();
+    /**
+     * @brief Gets the name of the player
+     * @param Name of the player
+     */
     void takePlayerName(QString name);
+    /**
+     * @brief Cancels the game
+     */
     void cancel();
+    /**
+     * @brief Starts the game when start button is clicked
+     */
     void on_startbutton_clicked();
+    /**
+     * @brief Advances the game every tick
+     */
     void advanceGame();
+    /**
+     * @brief Moves the character to the left
+     */
     void move_left();
+    /**
+     * @brief Moves the character to the right
+     */
     void move_right();
+    /**
+     * @brief Moves the character to the up
+     */
     void move_up();
+    /**
+     * @brief Moves the character to the down
+     */
     void move_down();
 
 
 private:
+    /**
+     * @brief Checks if the actor is in the map
+     * @param The graphicof the item
+     * @return Boolean value of whether the item is found
+     */
     bool inMap(GraphicItem* item);
 
     Ui::MainWindow *ui;
@@ -81,8 +136,10 @@ private:
     QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
     GraphicItem *player_;
+    GraphicItem *plane_;
     QPushButton *startbutton_;
     bool action_taken_;
+    bool plane_created_;
     statistics *statistics_;
 
     std::shared_ptr<CourseSide::Logic> logic;

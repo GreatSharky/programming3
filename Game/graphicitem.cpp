@@ -40,6 +40,10 @@ void StudentSide::GraphicItem::updateGraphic(int newX, int newY)
         newX = character_.get()->giveLocation().giveX();
         newY = 500 - character_.get()->giveLocation().giveY();
     }
+    else if(type_ == PLANE){
+        newX = plane_.get()->giveLocation().giveX();
+        newY = plane_.get()->giveLocation().giveY();
+    }
     x_ = newX;
     y_ = newY;
     setX(x_);
@@ -56,6 +60,16 @@ std::shared_ptr<StudentSide::Character> StudentSide::GraphicItem::getcharacter()
 {
     if(type_ == CHARACTER){
         return character_;
+    }
+    else{
+        return nullptr;
+    }
+}
+
+std::shared_ptr<StudentSide::Airplane> StudentSide::GraphicItem::getAirplane()
+{
+    if(type_ == PLANE){
+        return plane_;
     }
     else{
         return nullptr;
@@ -82,6 +96,7 @@ void StudentSide::GraphicItem::selectIcon()
 
     }
     else if(type_ == PLANE){
+        makePlane();
         QPixmap bigGraphic(":/plane-icon.png");
         picture = bigGraphic.scaled(40,40);
         setOffset(-20,-20);
@@ -94,4 +109,11 @@ void StudentSide::GraphicItem::selectIcon()
 void StudentSide::GraphicItem::makeCharacter()
 {
     character_ = std::make_shared<Character>(x_,y_);
+}
+
+void StudentSide::GraphicItem::makePlane()
+{
+    x_ = (rand() % 400) + 100;
+    y_ = (rand() % 400) + 100;
+    plane_ = std::make_shared<Airplane>(x_, y_);
 }

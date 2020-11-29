@@ -51,7 +51,7 @@ void StudentSide::City::addActor(std::shared_ptr<IActor> newactor)
             GraphicItem* pic = new GraphicItem(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(),BUS);
             vehicles_.insert({newactor, pic});
         }
-        else if(dynamic_cast<airplane*>(newactor.get()) != nullptr){
+        else if(dynamic_cast<Airplane*>(newactor.get()) != nullptr){
             GraphicItem* pic = new GraphicItem(newactor->giveLocation().giveX(), 500-newactor->giveLocation().giveY(), PLANE);
             vehicles_.insert({newactor,pic});
         }

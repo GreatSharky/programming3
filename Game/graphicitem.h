@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <character.hh>
+#include "airplane.hh"
 
 
 enum GraphicsItem {NOTHING, STOP, BUS, PLANE , CHARACTER,OTHER};
@@ -33,6 +34,7 @@ public:
      * @return The pointer oto the character
      */
     std::shared_ptr<Character> getcharacter();
+    std::shared_ptr<Airplane> getAirplane();
 
 private:
     /**
@@ -43,6 +45,10 @@ private:
      * @brief Creates the player character
      */
     void makeCharacter();
+    /**
+     * @brief Creates the plane character
+     */
+    void makePlane();
 
     int x_;
     int y_;
@@ -50,6 +56,7 @@ private:
     int dir_;
     QPixmap picture;
     std::shared_ptr<Character> character_;
+    std::shared_ptr<Airplane> plane_;
 
 };
 

@@ -6,7 +6,8 @@ using namespace StudentSide;
 StudentSide::MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    action_taken_(false)
+    action_taken_(false),
+    plane_created_(false)
 {
     ui->setupUi(this);
 
@@ -120,8 +121,6 @@ void MainWindow::updateGraphics()
                 addActor(it->second);
             }
         }
-
-
 }
 
 void MainWindow::point_info()
@@ -207,7 +206,6 @@ void MainWindow::on_startbutton_clicked()
 
 void MainWindow::advanceGame()
 {
-    qDebug() << "advanceGame()";
     logic.get()->increaseTime();
     std::vector<std::shared_ptr<IActor> > near = tre.get()->getNearbyActors(player_->getcharacter().get()->giveLocation());
 
@@ -215,17 +213,25 @@ void MainWindow::advanceGame()
         if(dynamic_cast<Nysse*>(it->get()) != nullptr){
             tre->removeActor(*it);
             statistics_->add_points("bus");
-        /*}else if(dynamic_cast<????*>(it->get()) != nullptr){
+        }else if(dynamic_cast<Airplane*>(it->get()) != nullptr){
             tre->removeActor(*it);
-            statistics_->add_points("plane");*/
+            statistics_->add_points("plane");
         }
     }
+    if(second_ % 20 == 1 && plane_created_ == false){
+        plane_ = new GraphicItem(0,0, PLANE);
+        addActor(plane_);
+        plane_created_ = true;
 
+    }else if(second_ % 20 == 2){
+        plane_created_ = false;
+    }
     player_->updateGraphic(0,0);
     updateGraphics();
     map->update();
     point_info();
     action_taken_ = false;
+
 }
 
 void MainWindow::move_left()
