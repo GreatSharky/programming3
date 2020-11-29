@@ -1,9 +1,11 @@
 #include "airplane.hh"
 
 
-StudentSide::Airplane::Airplane(int x, int y) :
+StudentSide::Airplane::Airplane() :
     removed_(false)
 {
+    int x = (rand() % 400) + 100;
+    int y = (rand() % 400) + 100;
     location_.setXY(x, y);
 }
 

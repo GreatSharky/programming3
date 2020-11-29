@@ -4,6 +4,7 @@
 #include "character.hh"
 #include "statistics.hh"
 #include "graphicitem.h"
+#include "airplane.hh"
 #include "city.h"
 #include "dialog.h"
 #include "graphics/simpleactoritem.hh"
@@ -136,7 +137,6 @@ private:
     QVector<GraphicItem*> actors_;
     QGraphicsItem* last_;
     GraphicItem *player_;
-    GraphicItem *plane_;
     QPushButton *startbutton_;
     bool action_taken_;
     bool plane_created_;

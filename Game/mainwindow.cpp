@@ -219,8 +219,8 @@ void MainWindow::advanceGame()
         }
     }
     if(second_ % 20 == 1 && plane_created_ == false){
-        plane_ = new GraphicItem(0,0, PLANE);
-        addActor(plane_);
+        std::shared_ptr<Airplane> plane = std::make_shared<Airplane>();
+        tre->addActor(plane);
         plane_created_ = true;
 
     }else if(second_ % 20 == 2){

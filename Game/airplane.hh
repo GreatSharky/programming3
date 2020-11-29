@@ -13,7 +13,7 @@ namespace StudentSide{
 class Airplane: public IActor
 {
 public:
-    Airplane(int x, int y);
+    Airplane();
     ~Airplane();
 
     /**
