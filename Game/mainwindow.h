@@ -30,7 +30,7 @@ namespace Ui {
 class MainWindow;
 }
 
-namespace Aaro {
+namespace StudentSide {
 
 
 /**

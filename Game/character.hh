@@ -10,13 +10,13 @@
 
 using namespace Interface;
 
-namespace Aaro{
+namespace StudentSide{
 
-class character: public IActor
+class Character: public IActor
 {
 public:
-    character(int x, int y);
-    ~character();
+    Character(int x, int y);
+    ~Character();
 
     /**
      * @brief defined in IActor
@@ -31,11 +31,6 @@ public:
      */
 
     void movement_commands(QString command);
-
-    /**
-     * @brief getGraphic
-     * @return characters graphic
-     */
 
 protected:
     bool removed_; 

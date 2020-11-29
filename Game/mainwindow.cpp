@@ -1,9 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-using namespace Aaro;
+using namespace StudentSide;
 
-Aaro::MainWindow::MainWindow(QWidget *parent) :
+StudentSide::MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     action_taken_(false)
@@ -165,9 +165,8 @@ void MainWindow::addTime()
             ++minute_;
         }
     }
-    if(minute_ == 1){
+    if(minute_ == 5){
         tre.get()->endGame();
-        // Joku hieno display saatana
         timer->stop();
         irlTimer->stop();
         QString points = QString::number(statistics_->getPoints());

@@ -1,38 +1,38 @@
 #include "airplane.hh"
 
 
-Aaro::airplane::airplane() :
+StudentSide::airplane::airplane() :
     removed_(false)
 {
     path();
 }
 
-Aaro::airplane::~airplane()
+StudentSide::airplane::~airplane()
 {
 
 }
 
-Location Aaro::airplane::giveLocation() const
+Location StudentSide::airplane::giveLocation() const
 {
     return location_;
 }
 
-void Aaro::airplane::move(Location loc)
+void StudentSide::airplane::move(Location loc)
 {
     location_ = loc;
 }
 
-void Aaro::airplane::remove()
+void StudentSide::airplane::remove()
 {
     removed_ = true;
 }
 
-bool Aaro::airplane::isRemoved() const
+bool StudentSide::airplane::isRemoved() const
 {
     return removed_;
 }
 
-void Aaro::airplane::path()
+void StudentSide::airplane::path()
 {
     int side = rand() % 5;
     int point = rand() % (400 - 100 + 1) + 100;

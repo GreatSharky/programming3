@@ -1,7 +1,7 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 
-using namespace Aaro;
+using namespace StudentSide;
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),

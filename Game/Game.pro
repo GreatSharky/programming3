@@ -31,27 +31,22 @@ else:unix: PRE_TARGETDEPS += \
 
 HEADERS += \
     airplane.hh \
-    busgraphic.h \
     character.hh \
     city.h \
     dialog.h \
     graphicitem.h \
     mainwindow.h \
-    statistics.hh \
-    stopgraphic.h
+    statistics.hh
 
 SOURCES += \
     airplane.cpp \
-    busgraphic.cpp \
     character.cpp \
     city.cpp \
-    creategame.cpp \
     dialog.cpp \
     graphicitem.cpp \
     main.cc \
     mainwindow.cpp \
-    statistics.cpp \
-    stopgraphic.cpp
+    statistics.cpp
 
 FORMS += \
     dialog.ui \

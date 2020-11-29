@@ -1,7 +1,7 @@
 #include "city.h"
 
 
-Aaro::City::City():
+StudentSide::City::City():
     clock_(new QTime)
 {
     qDebug() << "City built";
@@ -9,25 +9,25 @@ Aaro::City::City():
     gameLive_ = false;
 }
 
-Aaro::City::~City()
+StudentSide::City::~City()
 {
     delete bigmap_;
     delete map_;
     delete clock_;
 }
 
-void Aaro::City::setBackground(QImage &basicbackground, QImage &bigbackground)
+void StudentSide::City::setBackground(QImage &basicbackground, QImage &bigbackground)
 {
     map_ = &basicbackground;
     bigmap_ = &bigbackground;
 }
 
-void Aaro::City::setClock(QTime clock)
+void StudentSide::City::setClock(QTime clock)
 {
     clock_->setHMS(clock.hour(),clock.minute(),clock.second());
 }
 
-void Aaro::City::addStop(std::shared_ptr<IStop> stop)
+void StudentSide::City::addStop(std::shared_ptr<IStop> stop)
 {
     // Test that location is set right
     if(stop.get()->getLocation().giveNorthernCoord() != 6700000 && stop.get()->getLocation().giveEasternCoord() != 3500000){
@@ -39,12 +39,12 @@ void Aaro::City::addStop(std::shared_ptr<IStop> stop)
     }
 }
 
-void Aaro::City::startGame()
+void StudentSide::City::startGame()
 {
     gameLive_ = true;
 }
 
-void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
+void StudentSide::City::addActor(std::shared_ptr<IActor> newactor)
 {
     if(!findActor(newactor)){
         if(dynamic_cast<CourseSide::Nysse*>(newactor.get()) != nullptr){
@@ -57,7 +57,7 @@ void Aaro::City::addActor(std::shared_ptr<IActor> newactor)
     }
 }
 
-void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
+void StudentSide::City::removeActor(std::shared_ptr<IActor> actor)
 {
     if(findActor(actor)){
         for(auto it =  vehicles_.begin(); it != vehicles_.end(); ++it){
@@ -65,10 +65,7 @@ void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
                 removedItems_.push_back(it->second);
                 if(actor.get()->isRemoved()){
                     actor.get()->remove();
-                }/*
-            if(it->second == nullptr){
-                delete it->second;
-            }*/
+                }
                 vehicles_.erase(it);
             }
         }
@@ -78,12 +75,12 @@ void Aaro::City::removeActor(std::shared_ptr<IActor> actor)
     }
 }
 
-void Aaro::City::actorRemoved(std::shared_ptr<IActor> actor)
+void StudentSide::City::actorRemoved(std::shared_ptr<IActor> actor)
 {
     qDebug() << "someone called actorRemoved" << actor.get();
 }
 
-bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
+bool StudentSide::City::findActor(std::shared_ptr<IActor> actor) const
 {
     if(dynamic_cast<Nysse*>(actor.get()) != nullptr){
         for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
@@ -103,7 +100,7 @@ bool Aaro::City::findActor(std::shared_ptr<IActor> actor) const
     return false;
 }
 
-void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
+void StudentSide::City::actorMoved(std::shared_ptr<IActor> actor)
 {
     if(std::dynamic_pointer_cast<Interface::IVehicle>(actor)){
         for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
@@ -116,7 +113,7 @@ void Aaro::City::actorMoved(std::shared_ptr<IActor> actor)
     }
 }
 
-std::vector<std::shared_ptr<IActor> > Aaro::City::getNearbyActors(Location loc) const
+std::vector<std::shared_ptr<IActor> > StudentSide::City::getNearbyActors(Location loc) const
 {
     std::vector<std::shared_ptr<IActor> > near;
     int distance = 10;
@@ -128,12 +125,12 @@ std::vector<std::shared_ptr<IActor> > Aaro::City::getNearbyActors(Location loc) 
     return near;
 }
 
-bool Aaro::City::isGameOver() const
+bool StudentSide::City::isGameOver() const
 {
     return !gameLive_;
 }
 
-QImage* Aaro::City::getBackground()
+QImage* StudentSide::City::getBackground()
 {
     if(map_ != nullptr){
         return  map_;
@@ -146,32 +143,32 @@ QImage* Aaro::City::getBackground()
     }
 }
 
-std::map<std::shared_ptr<IStop>, Aaro::GraphicItem *> Aaro::City::getStops()
+std::map<std::shared_ptr<IStop>, StudentSide::GraphicItem *> StudentSide::City::getStops()
 {
     return stops_;
 }
 
-std::map<std::shared_ptr<IActor>, Aaro::GraphicItem *> Aaro::City::getVehicles()
+std::map<std::shared_ptr<IActor>, StudentSide::GraphicItem *> StudentSide::City::getVehicles()
 {
     return vehicles_;
 }
 
-std::vector<Aaro::GraphicItem *> Aaro::City::getRemoved()
+std::vector<StudentSide::GraphicItem *> StudentSide::City::getRemoved()
 {
     return removedItems_;
 }
 
-void Aaro::City::clearRemoved()
+void StudentSide::City::clearRemoved()
 {
     removedItems_.clear();
 }
 
-void Aaro::City::endGame()
+void StudentSide::City::endGame()
 {
     gameLive_ = false;
 }
 
-int Aaro::City::test()
+int StudentSide::City::test()
 {
     return 1;
 }

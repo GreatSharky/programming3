@@ -7,7 +7,7 @@
 
 using namespace Interface;
 
-namespace Aaro{
+namespace StudentSide{
 
 class statistics : public IStatistics
 {

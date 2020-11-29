@@ -1,6 +1,6 @@
 #include "statistics.hh"
 
-Aaro::statistics::statistics() :
+StudentSide::statistics::statistics() :
     points_(0),
     planes_(0),
     buses_(0)
@@ -8,33 +8,33 @@ Aaro::statistics::statistics() :
 
 }
 
-Aaro::statistics::~statistics()
+StudentSide::statistics::~statistics()
 {
 
 }
 
-void Aaro::statistics::morePassengers(int num)
+void StudentSide::statistics::morePassengers(int num)
 {
     qDebug() << num << " new passangers added.";
 
 }
 
-void Aaro::statistics::nysseRemoved()
+void StudentSide::statistics::nysseRemoved()
 {
     qDebug() << "Nysse is removed from the game.";
 }
 
-void Aaro::statistics::newNysse()
+void StudentSide::statistics::newNysse()
 {
     qDebug() << "New nysse has been added to the game.";
 }
 
-void Aaro::statistics::nysseLeft()
+void StudentSide::statistics::nysseLeft()
 {
     qDebug() << "Nysse has left the game.";
 }
 
-void Aaro::statistics::add_points(QString vehicle)
+void StudentSide::statistics::add_points(QString vehicle)
 {
     if(vehicle == "bus"){
         points_ += 10;
@@ -46,17 +46,17 @@ void Aaro::statistics::add_points(QString vehicle)
     }
 }
 
-int Aaro::statistics::getPoints()
+int StudentSide::statistics::getPoints()
 {
     return points_;
 }
 
-int Aaro::statistics::getPlanes()
+int StudentSide::statistics::getPlanes()
 {
     return planes_;
 }
 
-int Aaro::statistics::getBuses()
+int StudentSide::statistics::getBuses()
 {
     return buses_;
 }
