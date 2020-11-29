@@ -85,6 +85,10 @@ public:
      */
     void clearRemoved();
 
+    /**
+     * @brief endGame ends the game
+     * @pre game should end
+     */
     void endGame();
 
     // test from olden days

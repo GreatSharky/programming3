@@ -11,7 +11,10 @@ enum GraphicsItem {NOTHING, STOP, BUS, PLANE , CHARACTER,OTHER};
 
 namespace StudentSide {
 
-
+/**
+ * @brief The GraphicItem class controls and creates games graphics
+ * works different depending on type
+ */
 class GraphicItem: public QGraphicsPixmapItem
 {
 public:

@@ -9,7 +9,9 @@
 using namespace Interface;
 
 namespace StudentSide{
-
+/**
+ * @brief The Airplane class appers on the map and gives more points than bus
+ */
 class Airplane: public IActor
 {
 public:

@@ -12,6 +12,9 @@ using namespace Interface;
 
 namespace StudentSide{
 
+/**
+ * @brief The Character class the actor that player controls and eats buses and planes
+ */
 class Character: public IActor
 {
 public:

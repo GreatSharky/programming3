@@ -20,6 +20,7 @@ void StudentSide::GraphicItem::updateGraphic(int newX, int newY)
         return;
     }
     else if(type_ == BUS){
+        //Flips the bus graphic
         if(dir_ < 0){
             if(x_ - newX > 0){
                 dir_ = 1;
@@ -39,6 +40,21 @@ void StudentSide::GraphicItem::updateGraphic(int newX, int newY)
     else if(type_ == CHARACTER){
         newX = character_.get()->giveLocation().giveX();
         newY = 500 - character_.get()->giveLocation().giveY();
+        if(dir_ < 0){
+            if(x_ - newX < 0){
+                dir_ = 1;
+                picture = picture.transformed(QTransform().scale(-1,1));
+                setPixmap(picture);
+            }
+        }
+        else if( dir_ >= 0){
+            if(x_ - newX > 0){
+                dir_ = -1;
+                picture = picture.transformed(QTransform().scale(-1,1));
+                setPixmap(picture);
+            }
+        }
+
     }
 
     x_ = newX;

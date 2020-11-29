@@ -41,6 +41,7 @@ StudentSide::MainWindow::MainWindow(QWidget *parent) :
     logic.get()->fileConfig();
     logic.get()->setTime(12,0);
 
+    // Used for controlling character
     QShortcut* act = new QShortcut( QKeySequence("left"), this );
     connect(act, SIGNAL(activated()), this, SLOT(move_left()));
     QShortcut* act2 = new QShortcut( QKeySequence("right"), this );
@@ -60,6 +61,7 @@ StudentSide::MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    // Needed for proper delete
     logic.get()->finalizeGameStart();
     delete ui;
     delete timer;
@@ -189,8 +191,6 @@ void MainWindow::takePlayerName(QString name)
 
 void MainWindow::cancel()
 {
-    // Logic sets up city for proper deletion
-    logic.get()->finalizeGameStart();
     close();
 }
 

@@ -11,6 +11,9 @@ class Dialog;
 
 namespace StudentSide {
 
+/**
+ * @brief The Dialog class lounch dialog whre playe can name his character
+ */
 class Dialog : public QDialog
 {
     Q_OBJECT
