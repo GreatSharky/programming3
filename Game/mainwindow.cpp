@@ -108,21 +108,21 @@ void MainWindow::addGraphics()
 void MainWindow::updateGraphics()
 {
 
-        std::vector<GraphicItem*> removed = tre.get()->getRemoved();
-        for(auto it = removed.begin(); it != removed.end(); ++it){
-            GraphicItem* n = *it;
-            map->removeItem(n);
-            delete n;
-        }
-        tre.get()->clearRemoved();
+    std::vector<GraphicItem*> removed = tre.get()->getRemoved();
+    for(auto it = removed.begin(); it != removed.end(); ++it){
+        GraphicItem* n = *it;
+        map->removeItem(n);
+        delete n;
+    }
+    tre.get()->clearRemoved();
 
-        std::map<std::shared_ptr<Interface::IActor>, GraphicItem* >  vehicles =
-                tre.get()->getVehicles();
-        for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
-            if(!inMap(it->second)){
-                addActor(it->second);
-            }
+    std::map<std::shared_ptr<Interface::IActor>, GraphicItem* >  vehicles =
+            tre.get()->getVehicles();
+    for(auto it = vehicles.begin(); it != vehicles.end(); ++it){
+        if(!inMap(it->second)){
+            addActor(it->second);
         }
+    }
 }
 
 void MainWindow::point_info()
