@@ -25,7 +25,7 @@ class MainWindow;
 namespace StudentSide{
 
 /**
- *Defines city
+ * @brief Defines city
  */
 class City : public ICity
 {

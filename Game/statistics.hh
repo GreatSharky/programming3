@@ -9,6 +9,9 @@ using namespace Interface;
 
 namespace StudentSide{
 
+/**
+ * @brief Keeps count of the points
+ */
 class statistics : public IStatistics
 {
 public:
