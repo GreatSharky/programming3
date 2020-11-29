@@ -2,6 +2,7 @@
 #define CITY_H
 
 #include "graphicitem.h"
+#include "airplane.hh"
 #include "interfaces/icity.hh"
 #include "actors/stop.hh"
 #include "actors/nysse.hh"
