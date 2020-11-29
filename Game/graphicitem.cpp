@@ -1,6 +1,6 @@
 #include "graphicitem.h"
 
-Aaro::GraphicItem::GraphicItem(int x, int y, GraphicsItem type):
+StudentSide::GraphicItem::GraphicItem(int x, int y, GraphicsItem type):
     QGraphicsPixmapItem(nullptr), x_(x), y_(y), type_(type), dir_(0)
 {
     selectIcon();
@@ -9,12 +9,12 @@ Aaro::GraphicItem::GraphicItem(int x, int y, GraphicsItem type):
     setY(y_);
 }
 
-Aaro::GraphicItem::~GraphicItem()
+StudentSide::GraphicItem::~GraphicItem()
 {
 
 }
 
-void Aaro::GraphicItem::updateGraphic(int newX, int newY)
+void StudentSide::GraphicItem::updateGraphic(int newX, int newY)
 {
     if(type_ == STOP){
         return;
@@ -47,12 +47,12 @@ void Aaro::GraphicItem::updateGraphic(int newX, int newY)
 
 }
 
-GraphicsItem Aaro::GraphicItem::getType()
+GraphicsItem StudentSide::GraphicItem::getType()
 {
     return type_;
 }
 
-std::shared_ptr<Aaro::character> Aaro::GraphicItem::getcharacter()
+std::shared_ptr<StudentSide::Character> StudentSide::GraphicItem::getcharacter()
 {
     if(type_ == CHARACTER){
         return character_;
@@ -62,7 +62,7 @@ std::shared_ptr<Aaro::character> Aaro::GraphicItem::getcharacter()
     }
 }
 
-void Aaro::GraphicItem::selectIcon()
+void StudentSide::GraphicItem::selectIcon()
 {
     if(type_ == STOP){
         QPixmap bigGraphic(":/bus-stop-icon.png");
@@ -91,7 +91,7 @@ void Aaro::GraphicItem::selectIcon()
     }
 }
 
-void Aaro::GraphicItem::makeCharacter()
+void StudentSide::GraphicItem::makeCharacter()
 {
-    character_ = std::make_shared<character>(x_,y_);
+    character_ = std::make_shared<Character>(x_,y_);
 }

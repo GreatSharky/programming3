@@ -21,9 +21,7 @@ namespace U {
 class MainWindow;
 }
 
-namespace Aaro{
-// Forward decleration
-
+namespace StudentSide{
 
 /**
  *Defines city

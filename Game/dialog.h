@@ -9,7 +9,7 @@ namespace Ui {
 class Dialog;
 }
 
-namespace Aaro {
+namespace StudentSide {
 
 class Dialog : public QDialog
 {
@@ -21,9 +21,16 @@ public:
 
 
 signals:
+    /**
+     * @brief The signal that contains the name is sent to the mainwindow
+     * @param The name of the player
+     */
     void getname(QString name);
 
 public slots:
+    /**
+     * @brief Emits the name as a signal
+     */
     void giveName();
 
 private:
