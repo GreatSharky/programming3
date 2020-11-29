@@ -21,7 +21,7 @@ public:
     GraphicItem(int x, int y, GraphicsItem type = NOTHING);
     ~GraphicItem();
     /**
-     * @brief Updates the graphics of the actors
+     * @brief Updates the graphics of the actors, its place and direction
      * @param The new X-coordinate
      * @param The new Y-Coordinate
      */
