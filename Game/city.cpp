@@ -101,6 +101,13 @@ bool StudentSide::City::findActor(std::shared_ptr<IActor> actor) const
             }
         }
     }
+    else if(dynamic_cast<Airplane*>(actor.get()) != nullptr){
+        for(auto it = vehicles_.begin(); it != vehicles_.end(); ++it){
+            if(it->first == actor){
+                return true;
+            }
+        }
+    }
     return false;
 }
 
