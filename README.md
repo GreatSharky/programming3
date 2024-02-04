@@ -1,3 +1,13 @@
+# Genreal
+
+This is an exercise made together with Eero Eerikson for Tampere Unäiversity Course Programming 3. The main goal of the course was to program a game using Tampere's public transport data. In the game you play as the Pacman ghost and eat busses in Tampere center.
+
+The CourseLib library was provided by the course and me and Eero have written all the code in the Game file.
+
+To compile the you will need to use QT creator. Compiling with normal project settings should create a game executable that should work normally. 
+
+
+
 # Programming 3 Exercise project template
 
 1. Make sure you have setup ssh-key for your GitLab account. https://course-gitlab.tuni.fi/profile/keys
